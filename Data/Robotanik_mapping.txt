@@ -1,0 +1,77 @@
+636;Trénink rekurze
+637;Trénink funkcí
+638;Trénink barev
+639;Cik cak
+640;Schody
+641;Zatáčky
+642;Kříž
+643;T křižovatka
+644;Mřížka
+645;Alternace
+646;Smyčka
+647;Kurz počítání 2
+648;Cik cak pro pokročilé
+649;Otočka
+650;Spirála
+651;Kroužení kolem kytky
+652;Nahoru a dolů
+653;Kontrola parity
+654;Odbočky
+655;Bludiště
+656;Trénink přebarvování
+657;Chodníček
+658;Máte dobrou paměť?
+659;Strom kytek
+660;Dvě řady
+661;Robokůň
+662;Velké schody
+663;Zahrádka
+664;Dilema 1
+665;Dilema 2
+666;Zřetězený seznam
+667;Slalom
+668;Slalom 2
+669;Špatná navigace
+670;Strom kytek 2
+671;Dvoubitové instrukce
+672;Dělení dvěma
+673;Kroužení s barvením
+674;Kurz počítání 1
+675;Písmeno X
+676;Mocniny dvojky
+677;Neznačená zatáčka
+678;Brzdná dráha
+679;Záhonek
+680;Rozbité schody
+681;Změna směru
+682;Zběsilé smyčky
+683;Kurz počítání 3
+696;Bludiště 2
+697;Na třetí doleva
+698;Hřebínek
+699;Hřebínek 2
+700;Čtverec
+701;Binární spirála
+702;Kolem kamenů
+703;Zahrádka 2
+704;Pozor na kameny
+705;Předčasná signalizace
+706;Kurz porovnávání
+1119;Za kamenem
+1120;Kličkování
+1121;Plná louka 1
+1122;Sběr u červené
+1123;Stříška
+1124;Dva dozadu
+1125;Plná louka 2
+1401;Obchůzka
+1402;Kurz počítání 4
+1403;Čtverec 2
+1404;Chaos
+1405;960
+1406;Kontrola parity 2
+1407;Schovaná kytka
+1704;Tři barvy
+1705;Had
+1706;Domeček
+1707;L
