@@ -4,6 +4,7 @@ import math
 import pylab as plt
 import scipy.stats as stats
 
+
 class KMean:
 	
 	def __init__(self,data, metric = "euclid"): #row - one point; column - one feature
