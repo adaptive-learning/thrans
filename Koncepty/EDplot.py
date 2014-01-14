@@ -2,16 +2,16 @@ import matplotlib.pyplot as plt
 import json
 import numpy as np
 
-with open("computed/2 problems.json") as f:
+#with open("computed/2 problems.json") as f:
+with open("computed/5 problems.json") as f:
     j = json.load(f)
-
 
 for line in j:
     pass
 
 j.sort(key=lambda x: -x["E-D"])
 
-maximum_error_rate = 0.5
+maximum_error_rate = 1
 y_pos = np.arange(len(j))
 
 plt.barh(y_pos, [maximum_error_rate] * len(j), align='center', alpha=1, color="green")
