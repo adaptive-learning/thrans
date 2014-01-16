@@ -3,7 +3,7 @@ import json
 import numpy as np
 
 #with open("computed/2 problems.json") as f:
-with open("computed/5 problems.json") as f:
+with open("computed/KNN 5 problems.json") as f:
     j = json.load(f)
 
 for line in j:

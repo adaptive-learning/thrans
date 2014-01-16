@@ -114,3 +114,26 @@ class Model2(Model):
         self.skills[0][s] += self.gamma * err * self.ppars[1][p] 
         self.ppars[0][p]  += self.gamma * err
         self.ppars[1][p]  += self.gamma * err * orig_skill
+
+
+class Model11(Model):
+    name = "Model11"
+
+    def __init__(self, data):
+        Model.__init__(self, data)
+        self.par['skill'] = - np.copy(self.data.student_mean_deviation)
+        self.par['b'] = np.copy(self.data.problem_mean_time)
+        self.gd_default_iter = 3
+
+    def normalize_param(self):
+        mean_skill = np.mean(self.par['skill'])
+        self.par['skill'] = self.par['skill'] - mean_skill
+        self.par['b'] = self.par['b'] - mean_skill
+
+    def predict(self, s, p):
+        return self.par['b'][p] - self.par['skill'][s]
+
+    def local_improvement(self, s, p, err):
+        self.par['skill'][s] += self.gamma * err * (-1)
+        self.par['b'][p]     += self.gamma * err
+    
