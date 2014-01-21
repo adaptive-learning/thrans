@@ -314,8 +314,16 @@ def compare_problem_measures(data):
     plot_scatter(stc, mcor, "skill time cor", "mean cor")
     plt.show()
 
-set_dir("../../Typicke ulohy/Data")
-compare_problem_measures(read_problem("Sokoban", ordering = 0))
+set_dir("../../Koncepty/Data")
+#compare_problem_measures(read_problem("Sokoban", ordering = 0))
+data = read_problem("Sokoban", ordering = 0)
+result = {}
+for name, value in zip(data.problem_names, get_discrimination(data)):
+    result[name] = value
+
+import json
+with open("../../Koncepty/Outliers data/{0} disc by Radek.json".format("Sokoban"), "w") as f:
+        f.write(json.dumps(result))
 
 ################## ruzne metriky podobnosti problemu ############
 
