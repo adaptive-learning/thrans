@@ -64,8 +64,8 @@ class Spectral_Clusterer:
 		
 		#print np.sum(self.eig_vect[:,0]), np.sum(self.eig_vect[:,1])
 		
-		sys.stdout.write("KMean ")
-		sys.stdout.flush()
+		#sys.stdout.write("KMean ")
+		#sys.stdout.flush()
 		if KMlib:
 			codebook, cost = clust.kmeans(self.points, cluster_number, iter=KMiter)
 			self.sol, cost2 = clust.vq(self.points, codebook)
@@ -119,7 +119,46 @@ class Spectral_Clusterer:
 		self.eig_val = self.eig_val[s]
 		self.eig_vect = self.eig_vect[:,s]
 		
-	
+		
+def all_perms(elements):
+    if len(elements) <=1:
+        yield elements
+    else:
+        for perm in all_perms(elements[1:]):
+            for i in range(len(elements)):
+                yield perm[:i] + elements[0:1] + perm[i:]
+
+def swapSol(sol1, sol2, clusterNumber):
+    best_pr = 0.0
+    for p in all_perms(range(clusterNumber)):
+        hits = 0.0
+        for i in range(clusterNumber):
+            hits += sum((sol1==i) & (sol2==p[i]))
+        pr = hits/sol1.size
+        if pr > best_pr:
+            best_pr = pr
+            best = p
+    
+    sol3 = np.copy(sol2)
+    for i in range(clusterNumber):
+        sol3[sol2 == best[i]] = i
+    return sol3
+
+def clusterSpearmanSC(cor, sol, clusterNumber = 2, SCtype = 1, KMiter=20, kcut=0, plot = False, mutual=False):
+    #print "Clustering ..."
+    SC = Spectral_Clusterer(np.copy(cor))
+    if kcut>0:
+        if mutual:
+            SC.kNearestMutual(kcut)
+        else:
+            SC.kNearest(kcut)
+    
+    solSC = SC.run(clusterNumber, SCtype, KMiter)
+    solSC = swapSol(sol,solSC,clusterNumber)        
+        
+    
+    return np.sum(sol==solSC)*1.0/len(sol), solSC, SC
+
 def demo():
 	data= np.array([
 			[0,1,1,0,0],
