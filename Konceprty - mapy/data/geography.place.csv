@@ -1,0 +1,1285 @@
+id,code,name,type
+1,us-al,Alabama,1
+2,us-az,Arizona,1
+3,us-ar,Arkansas,1
+4,us-ca,Kalifornie,1
+5,us-co,Colorado,1
+6,us-ct,Connecticut,1
+7,us-de,Delaware,1
+8,us-fl,Florida,1
+9,us-ga,Georgie,1
+10,us-id,Idaho,1
+11,us-il,Illinois,1
+12,us-in,Indiana,1
+13,us-ia,Iowa,1
+14,us-ks,Kansas,1
+15,us-ky,Kentucky,1
+16,us-la,Louisiana,1
+17,us-me,Maine,1
+18,us-md,Maryland,1
+19,us-ma,Massachusetts,1
+20,us-mi,Michigan,1
+21,us-mn,Minnesota,1
+22,us-ms,Mississippi,1
+23,us-mo,Missouri,1
+24,us-mt,Montana,1
+25,us-ne,Nebraska,1
+26,us-nv,Nevada,1
+27,us-nh,New Hampshire,1
+28,us-nj,New Jersey,1
+29,us-nm,Nové Mexiko,1
+30,us-ny,New York,1
+31,us-nc,Severní Karolína,1
+32,us-nd,Severní Dakota,1
+33,us-oh,Ohio,1
+34,us-ok,Oklahoma,1
+35,us-or,Oregon,1
+36,us-pa,Pensylvánie,1
+37,us-ri,Rhode Island,1
+38,us-sc,Jižní Karolína,1
+39,us-sd,Jižní Dakota,1
+40,us-tn,Tennessee,1
+41,us-tx,Texas,1
+42,us-ut,Utah,1
+43,us-vt,Vermont,1
+44,us-va,Virginie,1
+45,us-wa,Washington,1
+46,us-wv,Západní Virginie,1
+47,us-wi,Wisconsin,1
+48,us-wy,Wyoming,1
+51,al,Albánie,1
+54,af,Afghánistán,1
+56,dz,Alžírsko,1
+57,ao,Angola,1
+58,ar,Argentina,1
+59,am,Arménie,1
+60,au,Austrálie,1
+61,az,Ázerbájdžán,1
+62,bs,Bahamy,1
+63,bd,Bangladéš,1
+64,be,Belgie,1
+65,bz,Belize,1
+66,by,Bělorusko,1
+67,bj,Benin,1
+68,bt,Bhútán,1
+69,bo,Bolívie,1
+70,ba,Bosna a Hercegovina,1
+71,bw,Botswana,1
+72,br,Brazílie,1
+73,bn,Brunej,1
+74,bg,Bulharsko,1
+75,bf,Burkina Faso,1
+76,bi,Burundi,1
+77,td,Čad,1
+78,me,Černá Hora,1
+79,cz,Česká republika,1
+80,cn,Čína,1
+81,dk,Dánsko,1
+82,cd,Demokratická republika Kongo,1
+83,do,Dominikánská republika,1
+84,dj,Džibutsko,1
+85,eg,Egypt,1
+86,ec,Ekvádor,1
+87,er,Eritrea,1
+88,ee,Estonsko,1
+89,et,Etiopie,1
+90,fk,Falklandy (Malvíny),1
+91,fj,Fidži,1
+92,ph,Filipíny,1
+93,fi,Finsko,1
+94,fr,Francie,1
+95,tf,Francouzská jižní a antarktická území,1
+96,ga,Gabon,1
+97,gm,Gambie,1
+98,gh,Ghana,1
+99,gl,Grónsko,1
+100,ge,Gruzie,1
+101,gt,Guatemala,1
+102,gn,Guinea,1
+103,gw,Guinea-Bissau,1
+104,gy,Guyana,1
+105,ht,Haiti,1
+106,hn,Honduras,1
+107,cl,Chile,1
+108,hr,Chorvatsko,1
+109,in,Indie,1
+110,id,Indonésie,1
+111,iq,Irák,1
+112,ir,Írán,1
+113,ie,Irsko,1
+114,is,Island,1
+115,it,Itálie,1
+116,il,Izrael,1
+117,jm,Jamajka,1
+118,jp,Japonsko,1
+119,ye,Jemen,1
+120,za,Jihoafrická republika,1
+121,kr,Jižní Korea,1
+122,ss,Jižní Súdán,1
+123,jo,Jordánsko,1
+124,kh,Kambodža,1
+125,cm,Kamerun,1
+126,ca,Kanada,1
+127,qa,Katar,1
+128,kz,Kazachstán,1
+129,ke,Keňa,1
+130,co,Kolumbie,1
+131,cg,Kongo,1
+132,cr,Kostarika,1
+133,cu,Kuba,1
+134,kw,Kuvajt,1
+135,cy,Kypr,1
+136,kg,Kyrgyzstán,1
+137,la,Laos,1
+138,ls,Lesotho,1
+139,lb,Libanon,1
+140,lr,Libérie,1
+141,ly,Libye,1
+142,lt,Litva,1
+143,lv,Lotyšsko,1
+144,lu,Lucembursko,1
+145,mg,Madagaskar,1
+146,hu,Maďarsko,1
+147,mk,Makedonie,1
+148,my,Malajsie,1
+149,mw,Malawi,1
+150,ml,Mali,1
+151,ma,Maroko,1
+152,mr,Mauritánie,1
+153,mx,Mexiko,1
+154,md,Moldavsko,1
+155,mn,Mongolsko,1
+156,mz,Mosambik,1
+157,mm,Myanmar,1
+158,na,Namibie,1
+159,de,Německo,1
+160,np,Nepál,1
+161,ne,Niger,1
+162,ng,Nigérie,1
+163,ni,Nikaragua,1
+164,nl,Nizozemsko,1
+165,no,Norsko,1
+166,nc,Nová Kaledonie,1
+167,nz,Nový Zéland,1
+168,om,Omán,1
+169,pk,Pákistán,1
+170,ps,Palestinská autonomie,1
+171,pa,Panama,1
+172,pg,Papua-Nová Guinea,1
+173,py,Paraguay,1
+174,pe,Peru,1
+175,ci,Pobřeží slonoviny,1
+176,pl,Polsko,1
+177,pr,Portoriko,1
+178,pt,Portugalsko,1
+179,at,Rakousko,1
+180,gq,Rovníková Guinea,1
+181,ro,Rumunsko,1
+182,ru,Rusko,1
+183,rw,Rwanda,1
+184,gr,Řecko,1
+185,sv,Salvador,1
+186,sa,Saúdská Arábie,1
+187,sn,Senegal,1
+188,kp,Severní Korea,1
+189,sl,Sierra Leone,1
+190,sk,Slovensko,1
+191,si,Slovinsko,1
+192,so,Somálsko,1
+193,ae,Spojené arabské emiráty,1
+194,gb,Spojené království,1
+195,us,Spojené státy americké,1
+196,rs,Srbsko,1
+197,cf,Středoafrická republika,1
+198,sd,Súdán,1
+199,sr,Surinam,1
+200,sz,Svazijsko,1
+201,sy,Sýrie,1
+202,sb,Šalamounovy ostrovy,1
+203,es,Španělsko,1
+204,lk,Šrí Lanka,1
+205,se,Švédsko,1
+206,ch,Švýcarsko,1
+207,tj,Tádžikistán,1
+208,tz,Tanzanie,1
+209,th,Thajsko,1
+210,tw,Tchaj-wan,1
+211,tg,Togo,1
+212,tn,Tunisko,1
+213,tr,Turecko,1
+214,tm,Turkmenistán,1
+215,ug,Uganda,1
+216,ua,Ukrajina,1
+217,uy,Uruguay,1
+218,uz,Uzbekistán,1
+219,ve,Venezuela,1
+220,vn,Vietnam,1
+221,tl,Východní Timor,1
+222,zm,Zambie,1
+223,eh,Západní Sahara,1
+224,zw,Zimbabwe,1
+225,world,Svět,3
+227,africa,Afrika,4
+228,samerica,Jižní Amerika,4
+229,namerica,Severní Amerika,4
+230,europe,Evropa,4
+231,asia,Asie,4
+232,oceania,Austrálie a Oceánie,4
+234,xk,Kosovo,1
+235,xs,Somaliland,1
+236,cz-us,Ústecký,7
+237,cz-pl,Plzeňský,7
+238,cz-jm,Jihomoravský,7
+239,cz-zl,Zlínský,7
+240,cz-ol,Olomoucký,7
+241,cz-pa,Pardubický,7
+242,cz-ka,Karlovarský,7
+243,cz-jc,Jihočeský,7
+244,cz-vy,Vysočina,7
+245,cz-pr,Praha,7
+246,cz-st,Středočeský,7
+247,cz-li,Liberecký,7
+248,cz-kr,Královéhradecký,7
+249,cz-mo,Moravskoslezský,7
+250,de-nw,Severní Porýní-Vestfálsko,8
+251,de-bw,Bádensko-Württembersko,8
+252,de-he,Hesensko,8
+253,de-hb,Brémy,8
+254,de-ni,Dolní Sasko,8
+255,de-th,Durynsko,8
+256,de-hh,Hamburk,8
+257,de-sh,Šlesvicko-Holštýnsko,8
+258,de-rp,Porýní-Falc,8
+259,de-sl,Sársko,8
+260,de-by,Bavorsko,8
+261,de-be,Berlín,8
+262,de-st,Sasko-Anhaltsko,8
+263,de-sn,Sasko,8
+264,de-bb,Braniborsko,8
+265,de-mv,Meklenbursko-Přední Pomořansko,8
+266,at-vo,Vorarlbersko,8
+267,at-bu,Burgenland,8
+268,at-st,Štýrsko,8
+269,at-ka,Korutany,8
+270,at-oo,Horní Rakousko,8
+271,at-sz,Salcbursko,8
+272,at-tr,Tyrolsko,8
+273,at-no,Dolní Rakousko,8
+274,at-wi,Vídeň,8
+275,in-ch,Čhattísgarh,1
+276,in-dl,Dillí,1
+277,in-hp,Himáčalpradéš,1
+278,in-hr,Harijána,1
+279,in-jk,Džammú a Kašmír,1
+280,in-ap,Ándhrapradéš,1
+281,in-kl,Kérala,1
+282,in-ld,Lakadivy / Lakšadvíp,1
+283,in-or,Urísa,1
+284,in-dn,Dádra a Nagar-havéli,1
+285,in-ka,Karnátaka,1
+286,in-mh,Maháráštra,1
+287,in-an,Andamany a Nikobary,1
+288,in-as,Ásám,1
+289,in-mn,Manípur,1
+290,in-nl,Nágáland,1
+291,in-ml,Méghálaj,1
+292,in-pb,Paňdžáb,1
+293,in-rj,Rádžasthán,1
+294,in-up,Uttarákhand,1
+295,in-ut,Uttarpradéš,1
+296,in-jh,Džhárkhand,1
+297,in-wb,Západní Bengálsko,1
+298,in-br,Bihár,1
+299,in-sk,Sikkim,1
+300,in-ct,Čandígarh,1
+301,in-mp,Madhjapradéš,1
+302,in-py,Puttuččéri,1
+303,in-tn,Tamilnádu,1
+304,in-gj,Gudžarát,1
+305,in-ga,Goa,1
+306,in-ar,Arunáčalpradéš,1
+307,in-mz,Mizóram,1
+308,in-tr,Tripura,1
+309,Daman and Diu,Damán a Díjú,1
+310,cn-62,Kan-su,9
+311,cn-63,Čching-chaj,9
+312,cn-45,Kuang-si,9
+313,cn-52,Kuej-čou,9
+314,cn-50,Čchung-čching,9
+315,cn-11,Peking,9
+316,cn-35,Fu-ťien,9
+317,cn-34,An-chuej,9
+318,cn-44,Kuang-tung,9
+319,cn-54,Tibetská autonomní oblast,9
+320,cn-65,Sin-ťiang,9
+321,cn-46,Chaj-nan,9
+322,cn-64,Ning-sia,9
+323,cn-61,Šen-si,9
+324,cn-14,Šan-si,9
+325,cn-42,Chu-pej,9
+326,cn-43,Chu-nan,9
+327,cn-51,S'-čchuan,9
+328,cn-53,Jün-nan,9
+329,cn-13,Che-pej,9
+330,cn-41,Che-nan,9
+331,cn-21,Liao-ning,9
+332,cn-37,Šan-tung,9
+333,cn-12,Tchien-ťin,9
+334,cn-36,Ťiang-si,9
+335,cn-32,Ťiang-su,9
+336,cn-31,Šanghaj,9
+337,cn-33,Če-ťiang,9
+338,cn-22,Ťi-lin,9
+339,cn-15,Vnitřní Mongolsko,9
+340,cn-23,Chej-lung-ťiang,9
+341,San_Marino,San Marino,2
+342,Vaduz,Vaduz,2
+343,Luxembourg,Lucemburk,2
+344,Monaco,Monako,2
+345,Andorra,Andorra,2
+346,Ljubljana,Lublaň,2
+347,Bratislava,Bratislava,2
+348,Podgorica,Podgorica,2
+349,Bern,Bern,2
+350,Pristina,Priština,2
+351,Skopje,Skopje,2
+352,Reykjavik,Reykjavík,2
+353,Chisinau,Kišiněv,2
+354,Vilnius,Vilnius,2
+355,Riga,Riga,2
+356,Zagreb,Záhřeb,2
+357,Tallinn,Talinn,2
+358,Belgrade,Bělehrad,2
+359,Tirana,Tirana,2
+360,Sofia,Sofie,2
+361,Minsk,Minsk,2
+362,Sarajevo,Sarajevo,2
+363,Budapest,Budapešť,2
+364,Bucharest,Bukurešť,2
+365,Lisbon,Lisabon,2
+366,Oslo,Oslo,2
+367,Warsaw,Varšava,2
+368,Dublin,Dublin,2
+369,Prague,Praha,2
+370,Helsinki,Helsinki,2
+371,Kobenhavn,Kodaň,2
+372,Brussels,Brusel,2
+373,Kiev,Kyjev,2
+374,Madrid,Madrid,2
+375,Geneva,Ženeva,2
+376,Stockholm,Stockholm,2
+377,Amsterdam,Amsterdam,2
+378,Berlin,Berlín,2
+379,Athens,Athény,2
+380,Vienna,Vídeň,2
+381,London,Londýn,2
+382,Moscow,Moskva,2
+383,Rome,Řím,2
+384,Paris,Paříž,2
+385,it-65,Abruzzo,10
+386,it-75,Apulie,10
+387,it-77,Basilicata,10
+388,it-78,Kalábrie,10
+389,it-72,Kampánie,10
+390,it-45,Emilia-Romagna,10
+391,it-36,Furlandsko-Julské Benátsko,10
+392,it-62,Lazio,10
+393,it-42,Ligurie,10
+394,it-25,Lombardie,10
+395,it-57,Marche,10
+396,it-67,Molise,10
+397,it-21,Piemont,10
+398,it-88,Sardinie,10
+399,it-82,Sicilie,10
+400,it-52,Toskánsko,10
+401,it-32,Tridentsko-Jižní Tyrolsko,10
+402,it-55,Umbrie,10
+403,it-23,Údolí Aosty,10
+404,it-34,Benátsko,10
+405,fr-a,Alsasko,11
+406,fr-b,Akvitánie,11
+407,fr-c,Auvergne,11
+408,fr-p,Dolní Normandie,11
+409,fr-d,Burgundsko,11
+410,fr-e,Bretaň,11
+411,fr-f,Centre,11
+412,fr-g,Champagne-Ardenne,11
+413,fr-h,Korsika,11
+414,fr-i,Franche-Comté,11
+415,fr-q,Horní Normandie,11
+416,fr-j,Île-de-France,11
+417,fr-k,Languedoc-Roussillon,11
+418,fr-l,Limousin,11
+419,fr-m,Lotrinsko,11
+420,fr-n,Midi-Pyrénées,11
+421,fr-o,Nord-Pas-de-Calais,11
+422,fr-r,Pays de la Loire,11
+423,fr-s,Pikardie,11
+424,fr-t,Poitou-Charentes,11
+425,fr-u,Provensálsko-Alpy-Azurové pobřeží,11
+426,fr-v,Rhône-Alpes,11
+427,es-an,Andalusie,12
+428,es-ar,Aragonie,12
+429,es-cb,Kantábrie,12
+430,es-cl,Kastilie a León,12
+431,es-cm,Kastilie-La Mancha,12
+432,es-ct,Katalánsko,12
+433,es-md,Madrid,12
+434,es-na,Navarra,12
+435,es-vc,Valencie,12
+436,es-ex,Extremadura,12
+437,es-ga,Galicie,12
+438,es-pm,Baleárské ostrovy,12
+439,es-lo,La Rioja,12
+440,es-pv,Baskicko,12
+441,es-as,Asturie,12
+442,es-mu,Murcie,12
+443,ca-mb,Manitoba,9
+444,ca-sk,Saskatchewan,9
+445,ca-ab,Alberta,9
+446,ca-bc,Britská Kolumbie,9
+447,ca-nu,Nunavut,9
+448,ca-nt,Severozápadní teritoria,9
+449,ca-yt,Yukon,9
+450,ca-on,Ontario,9
+451,ca-qc,Québec,9
+452,ca-nb,Nový Brunšvik,9
+453,ca-ns,Nové Skotsko,9
+454,ca-nl,Newfoundland a Labrador,9
+455,ca-pe,Ostrov prince,9
+456,au-nt,Severní Teritorium,1
+457,au-wa,Západní Austrálie,1
+458,au-ct,Teritorium hlavního města,1
+459,au-ns,Nový Jižní Wales,1
+460,au-sa,Jižní Austrálie,1
+461,au-vi,Victoria,1
+462,au-ql,Queensland,1
+463,au-ts,Tasmánie,1
+464,Hardanger-vidda,Hardangervidda,13
+465,Bohmerwald,Šumava,13
+466,Transylvanian_Alps,Jižní Karpaty,13
+467,Tatra_Mts.,Tatry,13
+468,Pindus_Mts.,Pindos,13
+469,Calabria,Kalábrie,13
+470,Harz,Harz,13
+471,Vosges,Vogézy,13
+472,Sudetes_Mts.,Sudetská pohoří,13
+473,Erzgebirge,Krušné hory,13
+474,Ardennes,Ardeny,13
+475,Jura,Jura,13
+476,Grampian_Mts.,Grampiany,13
+477,Cambrian_Mts., Kumbrické hory,13
+478,Balkan_Mts.,Stará planina,13
+479,Dinaric_Alps,Dinárské hory,13
+480,Cord._Cantabrica,Kantaberské pohoří,13
+481,S._Nevada,Sierra Nevada,13
+482,Sierra_Morena,Sierra Morena,13
+483,KJLEN_MOUNTAINS,Skandinávské pohoří,13
+484,CARPATHIAN_MOUNTAINS,Karpaty,13
+485,APPENNINI,Apeniny,13
+486,PYRENEES,Pyreneje,13
+487,ALPS,Alpy,13
+488,CAUCASUS_MTS.,Kavkaz,13
+489,Mesa,Mesa,2
+490,San_Mateo,San Mateo,2
+491,Aurora,Aurora,2
+492,Kansas_City,Kansas City,2
+493,Pasadena,Pasadena,2
+494,Grand_Prairie,Arlington,2
+495,Stamford,Stamford,2
+496,Joliet,Joliet,2
+497,Stockton,Stockton,2
+498,Oceanside,Oceanside,2
+499,Irvine,Irvine,2
+500,New_Haven,New Haven,2
+501,Lowell,Lowell,2
+502,Fort_Lauderdale,Fort Lauderdale,2
+503,Gary,Gary,2
+504,Covington,Covington,2
+505,Akron,Akron,2
+506,Grand_Rapids,Grand Rapids,2
+507,Tacoma,Tacoma,2
+508,Long_Beach,Long Beach,2
+509,Hartford,Hartford,2
+510,Providence,Providence,2
+511,Birmingham,Birmingham,2
+512,St._Petersburg,St. Petersburg,2
+513,Dayton,Dayton,2
+514,Virginia_Beach,Virginia Beach,2
+515,Oakland,Oakland,2
+516,West_Palm_Beach,West Palm Beach,2
+517,Sarasota,Sarasota,2
+518,Louisville,Louisville,2
+519,Charlotte,Charlotte,2
+520,Columbus,Columbus,2
+521,Albany,Albany,2
+522,Harrisburg,Harrisburg,2
+523,San_Bernardino,San Bernardino,2
+524,Bridgeport,Bridgeport,2
+525,Rochester,Rochester,2
+526,Tucson,Tucson,2
+527,Fresno,Fresno,2
+528,Albuquerque,Albuquerque,2
+529,Tulsa,Tulsa,2
+530,Ft._Worth,Ft. Worth,2
+531,Austin,Austin,2
+532,El_Paso,El Paso,2
+533,Orlando,Orlando,2
+534,Jacksonville,Jacksonville,2
+535,Indianapolis,Indianapolis,2
+536,Knoxville,Knoxville,2
+537,Richmond,Richmond,2
+538,Baltimore,Baltimore,2
+539,Syracuse,Syracuse,2
+540,San_Jose,San Jose,2
+541,Sacramento,Sacramento,2
+542,Las_Vegas,Las Vegas,2
+543,Portland,Portland,2
+544,Salt_Lake_City,Salt Lake City,2
+545,Omaha,Omaha,2
+546,Oklahoma_City,Oklahoma City,2
+547,San_Antonio,San Antonio,2
+548,Raleigh,Raleigh,2
+549,Cleveland,Cleveland,2
+550,Cincinnati,Cincinnati,2
+551,Nashville,Nashville,2
+552,Memphis,Memphis,2
+553,Norfolk,Norfolk,2
+554,Milwaukee,Milwaukee,2
+555,Buffalo,Buffalo,2
+556,Pittsburgh,Pittsburgh,2
+557,Minneapolis,Minneapolis,2
+558,Seattle,Seattle,2
+559,Phoenix,Phoenix,2
+560,San_Diego,San Diego,2
+561,St._Louis,St. Louis,2
+562,New_Orleans,New Orleans,2
+563,Dallas,Dallas,2
+564,Boston,Boston,2
+565,Tampa,Tampa,2
+566,Philadelphia,Philadelphia,2
+567,Detroit,Detroit,2
+568,San_Francisco,San Francisco,2
+569,Denver,Denver,2
+570,Houston,Houston,2
+571,Miami,Miami,2
+572,Atlanta,Atlanta,2
+573,Chicago,Chicago,2
+574,Los_Angeles,Los Angeles,2
+575,"Washington,_D.C.","Washington, D.C.",2
+576,New_York,New York,2
+577,Bielefeld,Bielefeld,2
+578,Dortmund,Dortmund,2
+579,Duisburg,Duisburg,2
+580,Wuppertal,Wuppertal,2
+581,Essen,Essen,2
+582,Karlsruhe,Karlsruhe,2
+583,Heidelberg,Heidelberg,2
+584,Augsburg,Augsburg,2
+585,Chemnitz,Chemnitz,2
+586,Bonn,Bonn,2
+587,Dusseldorf,Düsseldorf,2
+588,Mannheim,Mannheim,2
+589,Wiesbaden,Wiesbaden,2
+590,Hannover,Hannover,2
+591,Koblenz,Koblenz,2
+592,Saarbrucken,Saarbrücken,2
+593,Leipzig,Lipsko,2
+594,Stuttgart,Stuttgart,2
+595,Bremen,Brémy,2
+596,Nurnberg,Norimberk,2
+597,Cologne,Kolín nad Rýnem,2
+598,Dresden,Drážďany,2
+599,Frankfurt,Frankfurt,2
+600,Hamburg,Hamburg,2
+601,Munich,Mnichov,2
+602,London_Ca,Londýn,2
+603,Windsor,Windsor,2
+604,Winnipeg,Winnipeg,2
+605,Calgary,Calgary,2
+606,Ottawa,Ottawa,2
+607,Quebec,Québec,2
+608,Halifax,Halifax,2
+609,Edmonton,Edmonton,2
+610,Montreal,Montraal,2
+611,Vancouver,Vancouver,2
+612,Toronto,Toronto,2
+613,Cranbourne,Cranbourne,2
+614,Gold_Coast,Gold Coast,2
+615,Canberra,Canberra,2
+616,Newcastle,Newcastle,2
+617,Adelaide,Adelaide,2
+618,Brisbane,Brisbane,2
+619,Perth,Perth,2
+620,Melbourne,Melbourne,2
+621,Sydney,Sydney,2
+622,Bregenz,Bregenz,2
+623,Eisenstadt,Eisenstadt,2
+624,Wiener_Neustadt,Wiener Neustadt,2
+625,Graz,Graz,2
+626,Klagenfurt,Klagenfurt,2
+627,Linz,Linz,2
+628,Passau,Pasov,2
+629,Salzburg,Salcbursko,2
+630,Innsbruck,Innsbruck,2
+631,Jihlava,Jihlava,2
+632,Plzen,Plzeň,2
+633,Otrokovice,Otrokovice,2
+634,Kudowa-Zdroj,Kudowa-Zdrój,2
+635,Klingenthal,Klingenthal,2
+636,Trinec,Třinec,2
+637,Klasterec_nad_Ohri,Klášterec nad Ohří,2
+638,Pelhrimov,Pelhřimov,2
+639,Chrudim,Chrudim,2
+640,Pardubice,Pardubice,2
+641,Hradec_Kralove,Hradec Králové,2
+642,Havlickuv_Brod,Havlíčkův Brod,2
+643,Zdar_nad_Sazavou,Žďár nad Sázavou,2
+644,Velke_Mezirici,Velké Meziříčí,2
+645,Svitavy,Svitavy,2
+646,Moravska_Trebova,Moravská Třebová,2
+647,Ceska_Trebova,Česká Třebová,2
+648,Usti_nad_Orlici,Ústí nad Orlicí,2
+649,Vysoke_Myto,Vysoké Mýto,2
+650,Trebic,Třebíč,2
+651,Nachod,Náchod,2
+652,Jicin,Jičín,2
+653,Vrchlabi,Vrchlabí,2
+654,Trutnov,Trutnov,2
+655,Dvur_Kralove_nad_Labem,Dvůr Králové nad Labem,2
+656,Rychnov_nad_Kneznou,Rychnov nad Kněžnou,2
+657,Turnov,Turnov,2
+658,Liberec,Liberec,2
+659,Jablonec_nad_Nisou,Jablonec nad Nisou,2
+660,Ceska_Lipa,Česká Lípa,2
+661,Novy_Bor,Nový Bor,2
+662,Usti_nad_Labem,Ústí nad Labem,2
+663,Teplice,Teplice,2
+664,Bilina,Bílina,2
+665,Most,Most,2
+666,Litvinov,Litvínov,2
+667,Zatec,Žatec,2
+668,Louny,Louny,2
+669,Kadan,Kadaň,2
+670,Jirkov,Jirkov,2
+671,Chomutov,Chomutov,2
+672,Varnsdorf,Varnsdorf,2
+673,Rumburk,Rumburk,2
+674,Decin,Děčín,2
+675,Roudnice_nad_Labem,Roudnice nad Labem,2
+676,Litomerice,Litoměřice,2
+677,Kromeriz,Kroměříž,2
+678,Holesov,Holešov,2
+679,Uhersky_Brod,Uherský Brod,2
+680,Vsetin,Vsetín,2
+681,Valasske_Mezirici,Valašské Meziříčí,2
+682,Roznov_pod_Radhostem,Rožnov pod Radhoštěm,2
+683,Zlin,Zlín,2
+684,Marianske_Lazne,Mariánské Lázně,2
+685,Cheb,Cheb,2
+686,As,Aš,2
+687,Ostrov,Ostrov,2
+688,Karlovy_Vary,Karlovy Vary,2
+689,Sokolov,Sokolov,2
+690,Chodov,Chodov,2
+691,Ceske_Budejovice,České Budějovice,2
+692,Cesky_Krumlov,Český Krumlov,2
+693,Jindrichuv_Hradec,Jindřichův Hradec,2
+694,Pisek,Písek,2
+695,Prachatice,Prachatice,2
+696,Strakonice,Strakonice,2
+697,Tabor,Tábor,2
+698,Jesenik,Jeseník,2
+699,Sternberk,Šternberk,2
+700,Unicov,Uničov,2
+701,Olomouc,Olomouc,2
+702,Prostejov,Prostějov,2
+703,Prerov,Přerov,2
+704,Hranice,Hranice,2
+705,Sumperk,Šumperk,2
+706,Zabreh,Zábřeh,2
+707,Domazlice,Domažlice,2
+708,Susice,Sušice,2
+709,Klatovy,Klatovy,2
+710,Rokycany,Rokycany,2
+711,Tachov,Tachov,2
+712,Vlasim,Vlašim,2
+713,Benesov,Benešov,2
+714,Beroun,Beroun,2
+715,Slany,Slaný,2
+716,Kladno,Kladno,2
+717,Kolin,Kolín,2
+718,Kutna_Hora,Kutná Hora,2
+719,Neratovice,Neratovice,2
+720,Melnik,Mělník,2
+721,Kralupy_nad_Vltavou,Kralupy nad Vltavou,2
+722,Mlada_Boleslav,Mladá Boleslav,2
+723,Podebrady,Poděbrady,2
+724,Nymburk,Nymburk,2
+725,Brandys_nad_Labem-Stara_Boleslav,Brandýs nad Labem-Stará Boleslav,2
+726,Pribram,Příbram,2
+727,Rakovnik,Rakovník,2
+728,Krnov,Krnov,2
+729,Bruntal,Bruntál,2
+730,Frydek-Mistek,Frýdek-Místek,2
+731,Cesky_Tesin,Český Těšín,2
+732,Orlova,Orlová,2
+733,Karvina,Karviná,2
+734,Havirov,Havířov,2
+735,Bohumin,Bohumín,2
+736,Novy_Jicin,Nový Jičín,2
+737,Koprivnice,Kopřivnice,2
+738,Frenstat_pod_Radhostem,Frenštát pod Radhoštěm,2
+739,Opava,Opava,2
+740,Hlucin,Hlučín,2
+741,Ostrava,Ostrava,2
+742,Boskovice,Boskovice,2
+743,Blansko,Blansko,2
+744,Brno,Brno,2
+745,Breclav,Břeclav,2
+746,Veseli_nad_Moravou,Veselí nad Moravou,2
+747,Hodonin,Hodonín,2
+748,Kyjov,Kyjov,2
+749,Vyskov,Vyškov,2
+750,Znojmo,Znojmo,2
+751,Praha,Praha,2
+752,Rejdice,Rejdice,2
+753,Uherske_Hradiste,Uherské Hradiště,2
+754,Hejnice,Hejnice,2
+755,Angers,Angers,2
+756,Clermont-Ferrand,Clermont-Ferrand,2
+757,Melun,Melun,2
+758,Saint-Etienne,Saint-Etienne,2
+759,Grenoble,Grenoble,2
+760,Caen,Caen,2
+761,Nantes,Nantes,2
+762,Toulon,Toulon,2
+763,Montpellier,Montpellier,2
+764,Nimes,Nimes,2
+765,Dijon,Dijon,2
+766,Tours,Tours,2
+767,Orleans,Orleans,2
+768,Rouen,Rouen,2
+769,Reims,Remeš,2
+770,Mulhouse,Mulhouse,2
+771,Nancy,Nancy,2
+772,Metz,Metz,2
+773,Rennes,Rennes,2
+774,Nice,Nice,2
+775,Toulouse,Toulouse,2
+776,Limoges,Limoges,2
+777,Lille,Lille,2
+778,Strasbourg,Štrasburk,2
+779,Bordeaux,Bordeaux,2
+780,Marseille,Marseille,2
+781,Le_Havre,Le Havre,2
+782,Lyon,Lyon,2
+783,Modena,Modena,2
+784,Reggio_di_Calabria,Reggio di Calabria,2
+785,Caserta,Caserta,2
+786,Como,Como,2
+787,Treviso,Treviso,2
+788,Parma,Parma,2
+789,Bologna,Bologna,2
+790,Cagliari,Cagliari,2
+791,Pisa,Pisa,2
+792,Livorno,Livorno,2
+793,Salerno,Salerno,2
+794,Bari,Bari,2
+795,Foggia,Foggia,2
+796,Lecce,Lecce,2
+797,Taranto,Taranto,2
+798,Messina,Messina,2
+799,Pescara,Pescara,2
+800,Bergamo,Bergamo,2
+801,Trieste,Terst,2
+802,Verona,Verona,2
+803,Turin,Turín,2
+804,Genoa,Janov,2
+805,Florence,Florencie,2
+806,Catania,Catania,2
+807,Venice,Benátky,2
+808,Palermo,Palermo,2
+809,Naples,Neapol,2
+810,Milan,Milán,2
+811,Marbella,Marbella,2
+812,Mataro,Mataro,2
+813,Gijon,Gijon,2
+814,Vitoria,Vitoria,2
+815,Almeria,Almeria,2
+816,Malaga,Malaga,2
+817,Albacete,Albacete,2
+818,Santander,Santander,2
+819,Salamanca,Salamanca,2
+820,Burgos,Burgos,2
+821,Cartagena,Cartagena,2
+822,Oviedo,Oviedo,2
+823,San_Sebastian,San Sebastiln,2
+824,Alicante,Alicante,2
+825,Castello,Castello,2
+826,Cadiz,Cadiz,2
+827,Granada,Granada,2
+828,Murcia,Murcia,2
+829,La_Coruna,A Coruña,2
+830,Pamplona,Pamplona,2
+831,Valladolid,Valladolid,2
+832,Palma,Palma,2
+833,Zaragoza,Zaragoza,2
+834,Cordoba,Cordoba,2
+835,Vigo,Vigo,2
+836,Bilbao,Bilbao,2
+837,Seville,Sevilla,2
+838,Valencia,Valencia,2
+839,Barcelona,Barcelona,2
+840,-99,N. Cyprus,1
+841,tt,Trinidad and Tobago,1
+842,vu,Vanuatu,1
+843,Saaremaa,Saaremaa,14
+844,Aland,Ålandy,14
+845,Gotland,Gotland,14
+846,Zealand,Sjælland,14
+847,Lofoten,Lofoty,14
+848,Vesteralen,Vesterály,14
+849,Rhodes,Rhodos,14
+850,Crete,Kréta,14
+851,Malta,Malta,14
+852,Menorca,Menorca,14
+853,Mallorca,Mallorca,14
+854,Ibiza,Ibiza,14
+855,Lesbos,Lesbos,14
+856,Kolguyev_I.,Kolgujev,14
+857,Sardegna,Sardinie,14
+858,Corse,Korsika,14
+859,Sicilia,Sicílie,14
+860,IRELAND,Irsko,14
+861,GREAT_BRITAIN,Velká Británie,14
+862,ICELAND,Island,14
+863,Valletta,Valletta,2
+864,Sunderland,Sunderland,2
+865,Southampton,Southampton,2
+866,Bristol,Bristol,2
+867,Bournemouth,Bournemouth,2
+868,Southend,Southend-on-Sea,2
+869,Reading,Reading,2
+870,Leicester,Leicester,2
+871,Bradford,Bradford,2
+872,Sheffield,Sheffield,2
+873,Middlesbrough,Middlesbrough,2
+874,Coventry,Coventry,2
+875,Kingston_upon_Hull,Kingston upon Hull,2
+876,Brighton,Brighton,2
+877,Portsmouth,Portsmouth,2
+878,Nottingham,Nottingham,2
+879,Stoke,Stoke,2
+880,Edinburgh,Edinburgh,2
+881,Liverpool,Liverpool,2
+882,Cardiff,Cardiff,2
+883,Leeds,Leeds,2
+884,Manchester,Manchester,2
+885,Belfast,Belfast,2
+886,Glasgow,Glasgow,2
+887,sk-bl,Bratislavský,7
+888,sk-bc,Banskobystrický,7
+889,sk-zi,Žilinský,7
+890,sk-ni,Nitriansky,7
+891,sk-tc,Trenciansky,7
+892,sk-ta,Trnavský,7
+893,sk-ki,Košický,7
+894,sk-pv,Prešovský,7
+895,Zvolen,Zvolen,2
+896,Handlova,Handlová,2
+897,Puchov,Púchov,2
+898,Surany,Šurany,2
+899,Galanta,Galanta,2
+900,Povazska_Bystrica,Považská Bystrica,2
+901,Martin,Martin,2
+902,Kezmarok,Kežmarok,2
+903,Topolcany,Topoľčany,2
+904,Banska_Stiavnica,Banská Štiavnica,2
+905,Partizanske,Partizánske,2
+906,Hlohovec,Hlohovec,2
+907,Levoca,Levoča,2
+908,Myjava,Myjava,2
+909,Michalovce,Michalovce,2
+910,Samorin,Šamorín,2
+911,Humenne,Humenné,2
+912,Sabinov,Sabinov,2
+913,Dubnica_nad_Vahom,Dubnica nad Váhom,2
+914,Snina,Snina,2
+915,Rimavska_Sobota,Rimavská Sobota,2
+916,Malacky,Malacky,2
+917,Dolny_Kubin,Dolný Kubín,2
+918,Roznava,Rožňava,2
+919,Kolarovo,Kolárovo,2
+920,Zilina,Žilina,2
+921,Kysucke_Nove_Mesto,Kysucké Nové Mesto,2
+922,Holic,Holíč,2
+923,Trencin,Trenčín,2
+924,Spisska_Nova_Ves,Spišská Nová Ves,2
+925,Trebisov,Trebišov,2
+926,Revuca,Revúca,2
+927,Banovce_nad_Bebravou,Bánovce nad Bebravou,2
+928,Stara_Lubovna,Stará Ľubovňa,2
+929,Zlate_Moravce,Zlaté Moravce,2
+930,Komarno,Komárno,2
+931,Lucenec,Lučenec,2
+932,Bardejov,Bardejov,2
+933,Skalica,Skalica,2
+934,Velky_Krtis,Veľký Krtíš,2
+935,Piestany,Piešťany,2
+936,Sturovo,Štúrovo,2
+937,Brezno,Brezno,2
+938,Presov,Prešov,2
+939,Filakovo,Fiľakovo,2
+940,Stropkov,Stropkov,2
+941,Dunajska_Streda,Dunajská Streda,2
+942,Nove_Mesto_nad_Vahom,Nové Mesto nad Váhom,2
+943,Cadca,Čadca,2
+944,Pezinok,Pezinok,2
+945,Trnava,Trnava,2
+946,Ruzomberok,Ružomberok,2
+947,Liptovsky_Mikulas,Liptovský Mikuláš,2
+948,Banska_Bystrica,Banská Bystrica,2
+949,Nova_Dubnica,Nová Dubnica,2
+950,Senec,Senec,2
+951,Detva,Detva,2
+952,Prievidza,Prievidza,2
+953,Nove_Zamky,Nové Zámky,2
+954,Svidnik,Svidník,2
+955,Sered,Sereď,2
+956,Vranov_nad_Toplou,Vranov nad Topľou,2
+957,Ziar_nad_Hronom,Žiar nad Hronom,2
+958,Poprad,Poprad,2
+959,Nitra,Nitra,2
+960,Levice,Levice,2
+961,Bytca,Bytča,2
+962,Moldava_nad_Bodvou,Moldava nad Bodvou,2
+963,Kosice,Košice,2
+964,Sala,Šaľa,2
+965,Senica,Senica,2
+966,TIERRA_DEL_FUEGO,Ohňová Země,14
+967,Nova_Scotia,Nové Skotsko,14
+968,Vancouver_Island,Vancouver,14
+969,VICTORIA_ISLAND,Viktoriin ostrov,14
+970,LABRADOR,Labrador,14
+971,ELLESMERE_ISLAND,Ellesmerův ostrov,14
+972,BAFFIN_ISLAND,Baffinův ostrov,14
+973,ISLAND_OF_NEWFOUNDLAND,Newfoundland,14
+974,SULAWESI,Sulavesi,14
+975,JAVA,Jáva,14
+976,MINDANAO,Mindanao,14
+977,LUZON,Luzon,14
+978,TAIWAN,Taiwan,14
+979,KYUSHU,Kjúšú,14
+980,SHIKOKU,Šikoku,14
+981,HOKKAIDO,Hokkaidó,14
+982,SAKHALIN,Sachalin,14
+983,SRI_LANKA,Srí Lanka,14
+984,TASMANIA,Tasmánie,14
+985,NEW_GUINEA,Nová Guinea,14
+986,BORNEO,Borneo,14
+987,SUMATRA,Sumatra,14
+988,HONSHU,Honšú,14
+989,GREENLAND,Grónsko,14
+990,MADAGASCAR,Madagaskar,14
+991,SOUTH_ISLAND,Jižní ostrov (Nový Zéland),14
+992,NORTH_ISLAND,Severní ostrov (Nový Zéland),14
+993,ETHIOPIAN_HIGHLANDS,Etiopská vysočina,13
+994,ZAGROS_MOUNTAINS,Zagros,13
+995,ALTAY_MOUNTAINS,Altaj,13
+996,GREATER_KHINGAN_RANGE,Velký Chingan,13
+997,STANOVOY_RANGE,Stanové pohoří,13
+998,CHAINE_ANNAMITIQUE,Annamské pohoří,13
+999,Siwalik_Hills,Šiválik,13
+1000,PAMIRS,Pamír,13
+1001,HINDU_KUSH,Hindúkuš,13
+1002,KARAKORAM_RA.,Karákóram,13
+1003,KUNLUN_MOUNTAINS,Kchun-lun-šan,13
+1004,ATLAS_MOUNTAINS,Atlas,13
+1005,APPALACHIAN_MTS.,Appalačské pohoří,13
+1006,BROOKS_RANGE,Brooksovo pohoří,13
+1007,COAST_MOUNTAINS,Pobřežní hory,13
+1008,CASCADE_RANGE,Kaskádové pohoří,13
+1009,ALASKA_RANGE,Aljašské hory,13
+1010,GREAT_DIVIDING_RANGE,Velké předělové pohoří,13
+1011,TIAN_SHAN,Ťan-šan,13
+1012,URAL_MOUNTAINS,Ural,13
+1013,HIMALAYAS,Himaláje,13
+1014,ANDES,Andy,13
+1015,ROCKY_MOUNTAINS,Skalnaté hory,13
+1016,Brahmaputra,Brahmaputra,5
+1017,Mekong,Mekong,5
+1018,Ob,Ob,5
+1019,Danube,Dunaj,5
+1020,Parana,Paraná,5
+1021,Congo,Congo,5
+1022,Lena,Lena,5
+1023,Chang_(Yangtze),Jang-c’-ťiang,5
+1024,Nile,Nil,5
+1025,Amazon,Amazonka,5
+1026,Mississippi,Mississippi,5
+1027,Lake_Baikal,Bajkal,6
+1028,Lake_Winnipeg,Winnipežské jezero,6
+1029,Great_Slave_Lake,Velké otročí jezero,6
+1030,L._Ontario,Ontario,6
+1031,L._Erie,Erijské jezero,6
+1032,Lake_Superior,Hořejší jezero,6
+1033,Lake_Victoria,Viktoriino jezero,6
+1034,Lake_Ladoga,Ladožské jezero,6
+1035,Balqash_Koli,Balchaš,6
+1036,Lake_Tanganyika,Tanganika,6
+1037,Lake_Malawi,Malawi,6
+1038,Aral_Sea,Aralské moře,6
+1039,Vanern,Vänern,6
+1040,Lago_de_Nicaragua,Nikaragua,6
+1041,Lago_Titicaca,Titicaca,6
+1042,Lake_Winnipegosis,Winnipegosis,6
+1043,Lake_Onega,Oněžské jezero,6
+1044,Great_Bear_Lake,Velké medvědí jezero,6
+1045,Reindeer_Lake,Sobí jezero,6
+1046,Lake_Huron,Hurónské jezero,6
+1047,Lake_Michigan,Michiganské jezero,6
+1048,Tunis,Tunis ,2
+1049,Baku,Baku ,2
+1050,Hanoi,Hanoi ,2
+1051,Ankara,Ankara ,2
+1052,Sanaa,San'á,2
+1053,Damascus,Damašek ,2
+1054,Khartoum,Chartúm ,2
+1055,Pyongyang,Pchjongjang ,2
+1056,Dar_es_Salaam,Dar es Salaam ,2
+1057,Havana,Havana ,2
+1058,Kuwait,Kuvajt ,2
+1059,Santo_Domingo,Santo Domingo ,2
+1060,Accra,Accra ,2
+1061,Tripoli,Tripoli ,2
+1062,Tel_Aviv-Yafo,Tel Aviv-Yafo ,2
+1063,Abidjan,Abidjan ,2
+1064,Brasilia,Brasilia ,2
+1065,Dhaka,Dhaka ,2
+1066,Luanda,Luanda ,2
+1067,Algiers,Alžír ,2
+1068,Rangoon,Rangún ,2
+1069,Caracas,Caracas ,2
+1070,Tashkent,Taškent ,2
+1071,Bangkok,Bangkok ,2
+1072,Lima,Lima ,2
+1073,Dakar,Dakar ,2
+1074,Johannesburg,Johannesburg ,2
+1075,Casablanca,Casablanca ,2
+1076,Seoul,Soul ,2
+1077,Manila,Manila ,2
+1078,Monterrey,Monterrey ,2
+1079,Urumqi,Urumči ,2
+1080,Chengdu,Chengdu ,2
+1081,Osaka,Osaka ,2
+1082,Kinshasa,Kinshasa ,2
+1083,Bangalore,Bangalore ,2
+1084,Baghdad,Bagdád ,2
+1085,Addis_Ababa,Addis Ababa ,2
+1086,Tehran,Teherán ,2
+1087,Buenos_Aires,Buenos Aires ,2
+1088,Kabul,Kábul ,2
+1089,Taipei,Taipei ,2
+1090,Istanbul,Istanbul ,2
+1091,Riyadh,Rijád ,2
+1092,Cape_Town,Kapské Město ,2
+1093,Mexico_City,Mexico City ,2
+1094,Lagos,Lagos ,2
+1095,Beijing,Peking ,2
+1096,Nairobi,Nairobi ,2
+1097,Jakarta,Jakarta ,2
+1098,Bogota,Bogota ,2
+1099,Cairo,Káhira ,2
+1100,Shanghai,Šanghai ,2
+1101,Tokyo,Tokio ,2
+1102,Mumbai,Mumbai ,2
+1103,Santiago,Santiago ,2
+1104,Kolkata,Kalkata,2
+1105,Rio_de_Janeiro,Rio de Janeiro ,2
+1106,Sao_Paulo,Sao Paulo ,2
+1107,Singapore,Singapur ,2
+1108,Hong_Kong,Hongkong,2
+1109,Bir_Lehlou,Bir Lehlou ,2
+1110,Moroni,Moroni ,2
+1111,Kigali,Kigali ,2
+1112,Mbabane,Mbabane ,2
+1113,Juba,Juba ,2
+1114,Dodoma,Dodoma ,2
+1115,Laayoune,Laayoune,2
+1116,Djibouti,Džibuti ,2
+1117,Banjul,Banjul ,2
+1118,Porto-Novo,Porto-Novo ,2
+1119,Bujumbura,Bujumbura ,2
+1120,Lome,Lome ,2
+1121,Lusaka,Lusaka ,2
+1122,Harare,Harare ,2
+1123,Kampala,Kampala ,2
+1124,Niamey,Niamey ,2
+1125,Freetown,Freetown ,2
+1126,Bloemfontein,Bloemfontein ,2
+1127,Pretoria,Pretoria ,2
+1128,Rabat,Rabat,2
+1129,Maputo,Maputo ,2
+1130,Mogadishu,Mogadišu ,2
+1131,Windhoek,Windhoek ,2
+1132,Abuja,Abuja ,2
+1133,Maseru,Maseru ,2
+1134,Antananarivo,Antananarivo ,2
+1135,Ndjamena,Ndjamena ,2
+1136,Malabo,Malabo ,2
+1137,Asmara,Asmara ,2
+1138,Lilongwe,Lilongwe ,2
+1139,Libreville,Libreville ,2
+1140,Nouakchott,Nouakchott ,2
+1141,Bamako,Bamako ,2
+1142,Conakry,Conakry ,2
+1143,Yamoussoukro,Yamoussoukro ,2
+1144,Bangui,Bangui ,2
+1145,Yaounde,Yaoundé ,2
+1146,Gaborone,Gaborone ,2
+1147,Ouagadougou,Ouagadougou ,2
+1148,Hargeysa,Hargeysa ,2
+1149,Sao_Tome,Sao Tome ,2
+1150,Monrovia,Monrovia,2
+1151,HAINAN,Hainan,14
+1152,TIMOR,Timor,14
+1153,Palawan,Palawan,14
+1154,Bohol,Bohol,14
+1155,Negros,Negros,14
+1156,Leyte,Leyte,14
+1157,Samar,Samar,14
+1158,Panay,Panay,14
+1159,Mindoro,Mindoro,14
+1160,Melekeok,Melekeok ,2
+1161,Doha,Doha ,2
+1162,Baguio_City,Baguio ,2
+1163,Putrajaya,Putrajaya ,2
+1164,Manama,Manama ,2
+1165,Abu_Dhabi,Abu Dhabi ,2
+1166,Ashgabat,Ashgabat ,2
+1167,Dili,Dili ,2
+1168,Dushanbe,Dušanbe ,2
+1169,Islamabad,Islamabad ,2
+1170,Kathmandu,Kathmandu ,2
+1171,Muscat,Muscat ,2
+1172,Colombo,Colombo ,2
+1173,Ulaanbaatar,Ulánbátar ,2
+1174,Amman,Amman ,2
+1175,Bishkek,Biškek ,2
+1176,Beirut,Bejrút ,2
+1177,Tbilisi,Tbilisi ,2
+1178,Astana,Astana ,2
+1179,Vientiane,Vientiane ,2
+1180,Bandar_Seri_Begawan,Bandar Seri Begawan ,2
+1181,Yerevan,Jerevan,2
+1182,Phnom_Penh,Phnompenh,2
+1183,Thimphu,Thimphu ,2
+1184,Naypyidaw,Neipyijto,2
+1185,Male,Male,2
+1186,Jerusalem,Jeruzalém ,2
+1187,Nicosia,Nicosia ,2
+1188,Kuala_Lumpur,Kuala Lumpur ,2
+1189,Dubai,Dubaj ,2
+1190,New_Delhi,Nové Dilí,2
+1191,Port-of-Spain,Port-of-Spain,2
+1192,Roseau,Roseau,2
+1193,Bridgetown,Bridgetown,2
+1194,Kingstown,Kingstown,2
+1195,Castries,Castries,2
+1196,Basseterre,Basseterre,2
+1197,Saint_George's,Saint George's,2
+1198,Saint_John's,Saint John's,2
+1199,Tegucigalpa,Tegucigalpa,2
+1200,Port-au-Prince,Port-au-Prince,2
+1201,Managua,Managua,2
+1202,Panama_City,Panama City,2
+1203,San_Salvador,San Salvador,2
+1204,Kingston,Kingston,2
+1205,Guatemala,Guatemala,2
+1206,Belmopan,Belmopan,2
+1207,Nassau,Nassau,2
+1208,Funafuti,Funafuti,2
+1209,Tarawa,Tarawa,2
+1210,Port-Vila,Port Vila,2
+1211,Port_Moresby,Port Moresby,2
+1212,Honiara,Honiara,2
+1213,Wellington,Wellington,2
+1214,Suva,Suva,2
+1215,Auckland,Auckland,2
+1216,Montevideo,Montevideo,2
+1217,Georgetown,Georgetown,2
+1218,Paramaribo,Paramaribo,2
+1219,Asuncion,Asuncion,2
+1220,Quito,Quito,2
+1221,Sucre,Sucre,2
+1222,La_Paz,La Paz,2
+1223,Sumava,Šumava,13
+1224,Krusne_hory,Krušné hory,13
+1225,Ceske_Stredohori,České Středohoří,13
+1226,Krkonose,Krkonoše,13
+1227,Jizerske_hory,Jizerské hory,13
+1228,Orlicke_hory,Orlické hory,13
+1229,Hruby_Jesenik,Hrubý Jeseník,13
+1230,Beskydy,Beskydy,13
+1231,Ceskomoravska_vrchovina,Českomoravská vrchovina,13
+1232,Bile_Karpaty,Bílé Karpaty,13
+1233,Cesky_les,Český les,13
+1234,Drahanska_vrchovina,Drahanská vrchovina,13
+1235,Rychlebske_hory,Rychlebské hory,13
+1236,Nizky_Jesenik,Nízký Jeseník,13
+1237,Plzenska_pahorkatina,Plzeňská pahorkatina,13
+1238,Novohradske_hory,Novohradské hory,13
+1239,Chriby,Chřiby,13
+1240,Doupovske_hory,Doupovské hory,13
+1241,Brdy,Brdy,13
+1242,Jestedsko-kozakovsky_hrbet,Ještědsko-kozákovský hřbet,13
+1243,Luzicke_hory,Lužické hory,13
+1244,Javorniky,Javorníky,13
+1245,Stredoceska_pahorkatina,Středočeská pahorkatina,13
+1246,Labe,Labe,5
+1247,Vltava,Vltava,5
+1248,Ohre,Ohře,5
+1249,Berounka,Berounka,5
+1250,Sazava,Sázava,5
+1251,Otava,Otava,5
+1252,Morava,Morava,5
+1253,Orlice,Orlice,5
+1254,Odra,Odra,5
+1255,Ostravice,Ostravice,5
+1256,Dyje,Dyje,5
+1257,Svratka,Svratka,5
+1258,Svitava,Svitava,5
+1259,Jizera,Jizera,5
+1260,Uslava,Úslava,5
+1261,Uhlava,Úhlava,5
+1262,Radbuza,Radbuza,5
+1263,Mze,Mže,5
+1264,Becva,Bečva,5
+1265,Daugava_(Zapadnaya_Dvina),Západní Dvina,5
+1266,Dniester,Dněstr,5
+1267,Drava,Drava,5
+1268,Duero,Duero,5
+1269,Ebro,Ebro,5
+1270,Elbe,Labe,5
+1271,Garonne,Garonna,5
+1272,Loire,Loira,5
+1273,Oder,Odra,5
+1274,Po,Pád,5
+1275,Seine,Seina,5
+1276,Svernaya_Dvina,Severní Dvina,5
+1277,Thames,Temže,5
+1278,Vistula,Visla,5
+1279,Vychegda,Vychegda,5
+1280,Rhine,Rýn,5
+1281,Volga,Volha,5
+1282,Don,Don,5
+1283,Dalalven,Dalälven,5
+1284,Kama,Kama,5
+1285,Tajo,Tajo,5
+1286,Tisa,Tisa,5
+1287,Dnepre,Dněpr,5
+1288,Rhone,Rhôna,5
+1289,Glomma,Glomma,5
+1290,Kemijoki,Kemijoki,5
+1291,Sukhona,Suchona,5
