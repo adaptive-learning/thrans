@@ -1,0 +1,122 @@
+Elo 1.0 0.05
+AUC	0.704096
+LL	-126845
+RMSE	0.406053
+Brier reliability	0.000149
+Brier resolution	0.019217
+Brier uncertainty	0.184603
+
+
+Elo 0.9 0.05
+AUC	0.704184
+LL	-126780
+RMSE	0.405981
+Brier reliability	8.6e-05
+Brier resolution	0.019149
+Brier uncertainty	0.184603
+
+
+
+Elo with local skill for clusters[u'australie', u'asie', u'evropa', u'afrika', u'severni amerika', u'jizni amerika'] - skills for clusters
+AUC	0.699442
+LL	-127507
+RMSE	0.407106
+Brier reliability	5.3e-05
+Brier resolution	0.018188
+Brier uncertainty	0.184603
+
+
+
+Elo with local skill for clusters[u'australie', u'asie', u'evropa', u'afrika', u'severni amerika', u'jizni amerika'] - delta skills for clusters
+AUC	0.707385
+LL	-126440
+RMSE	0.405373
+Brier reliability	0.000131
+Brier resolution	0.019753
+Brier uncertainty	0.184603
+
+
+
+Elo with local skill for clusters[u'australie', u'asie', u'evropa', u'afrika', u'severni amerika', u'jizni amerika'], 0.5 0.05
+AUC	0.708002
+LL	-126352
+RMSE	0.405173
+Brier reliability	6e-05
+Brier resolution	0.019737
+Brier uncertainty	0.184603
+
+
+
+
+
+
+Elo 0.9 0.05
+AUC	0.709191
+LL	-86782
+RMSE	0.401735
+Brier reliability	0.000149
+Brier resolution	0.019832
+Brier uncertainty	0.181804
+
+Elo with local skill for clusters[u'svet1', u'svet0', u'svet3', u'svet2'], 0.5 0.05
+AUC	0.710054
+LL	-86667
+RMSE	0.401665
+Brier reliability	0.000121
+Brier resolution	0.019879
+Brier uncertainty	0.181804
+
+
+
+
+
+Elo 0.8 0.05
+AUC	0.686236
+LL	-202599
+RMSE	0.414936
+Brier reliability	9.1e-05
+Brier resolution	0.01699
+Brier uncertainty	0.189834
+Elo with correlations, corr_places_count 10, alpha: 0.7, beta0.05
+AUC	0.692349
+LL	-201608
+RMSE	0.413791
+Brier reliability	4.4e-05
+Brier resolution	0.017842
+Brier uncertainty	0.189834
+improvement 0.28%
+Elo with correlations, corr_places_count 100, alpha: 0.7, beta0.05
+AUC	0.724172
+LL	-195522
+RMSE	0.406632
+Brier reliability	0.000227
+Brier resolution	0.023787
+Brier uncertainty	0.189834
+improvement 2.00%
+Elo with correlations, corr_places_count 200, alpha: 0.7, beta0.05
+AUC	0.736436
+LL	-192800
+RMSE	0.403345
+Brier reliability	0.000404
+Brier resolution	0.026512
+Brier uncertainty	0.189834
+improvement 2.79%
+
+Elo with correlations, corr_places_count 0, corr_place_weight 2.4, alpha: 0.7, beta0.05
+AUC	0.750863
+LL	-188903
+RMSE	0.39858
+Brier reliability	0.000314
+Brier resolution	0.030114
+Brier uncertainty	0.1898
+improvement 3.94%
+
+
+Elo with correlations, corr_places_count 0, corr_place_weight 2.4, alpha: 0.7, beta0.05
+AUC	0.758727
+LL	-186807
+RMSE	0.396124
+Brier reliability	0.000493
+Brier resolution	0.032099
+Brier uncertainty	0.189834
+improvement 4.53%
