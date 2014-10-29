@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 
 
 class Data():
@@ -13,12 +14,9 @@ class Data():
         return self.file
 
     def __iter__(self):
-        self.n = 0
-        with open(self.file) as f:
-            for line in f.readlines():
-                self.n += 1
-                yield json.loads(line)
-                if self.n % 10000 == 0:
-                    print ".",
-                if self.test and self.n >= 10000:
-                    break
+        data = pd.load(self.file)
+        self.n = len(data)
+
+        columns = data.columns.values
+        for row in data.values:
+            yield dict(zip(columns, row))
