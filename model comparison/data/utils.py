@@ -76,6 +76,16 @@ def filter_europe(input="geography-first-all.pd", output=None):
     print filtered
 
 
+def filter_cz_cities(input="geography-first-all.pd", output=None):
+    data = pd.load(input)
+
+    filtered = data[631 <= data["item"]]
+    filtered = filtered[754 >= filtered["item"]]
+
+    filtered.save(output)
+    print filtered
+
+
 def filter_small_data(input="geography-first-all.pd", output=None, min_students=200, min_items=20):
     data = pd.load(input)
 
@@ -105,4 +115,5 @@ def filter_small_data(input="geography-first-all.pd", output=None, min_students=
 # filter_first(output="geography-first-all.pd")
 # filter_states(output="geography-first-states.pd")
 # filter_europe(output="geography-first-europe.pd")
-# filter_small_data(input="geography-first-europe.pd", output="geography-first-europe-filtered.pd", min_items=10)
+# filter_cz_cities(output="geography-first-cz_city.pd")
+# filter_small_data(input="geography-first-cz_city.pd", output="geography-first-cz_city-filtered.pd", min_items=10)
