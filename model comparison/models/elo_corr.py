@@ -4,7 +4,7 @@ from hashlib import sha1
 
 class EloCorrModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1.4, prior_weight=0):
+    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0):
         Model.__init__(self)
 
         self.corr = None
