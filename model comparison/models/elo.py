@@ -3,7 +3,7 @@ from model import Model, sigmoid
 
 class EloModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.05, decay_function=None):
+    def __init__(self, alpha=1.0, beta=0.1, decay_function=None):
         Model.__init__(self)
 
         self.alpha = alpha

@@ -1,5 +1,5 @@
-import json
 import math
+import pandas as pd
 
 
 def sigmoid(x, c=0):
@@ -18,10 +18,9 @@ class Model:
 
     def process_data(self, data):
         for answer in data:
-            prediction = self.process(answer["student"], answer["item"], answer["correct"], answer["extra"])
-            answer["prediction"] = prediction
+            prediction = self.process(answer["student"], answer["item"], answer["correct"], answer)
             if self.logger is not None:
-                self.logger(json.dumps(answer))
+                self.logger(answer, prediction)
             
     def process(self, student, item, correct, extra=None):
         pass
@@ -47,5 +46,30 @@ class AvgModel(Model):
 
     def process(self, student, item, correct, extra=None):
         return self.avg
+
+
+class AvgItemModel(Model):
+    def __init__(self):
+        Model.__init__(self)
+        self.corrects = 0
+        self.all = 0
+
+    def __str__(self):
+        return "Item average"
+
+    def pre_process_data(self, data):
+        items = data.get_items()
+        self.corrects = pd.Series(index=items)
+        self.counts = pd.Series(index=items)
+        self.corrects.fill(0)
+        self.counts.fill(0)
+
+    def process(self, student, item, correct, extra=None):
+        ret = self.corrects[item] / self.counts[item] if self.counts[item] > 0 else 0.7
+        self.counts[item] += 1
+        if correct:
+            self.corrects[item] += 1
+
+        return ret
 
 

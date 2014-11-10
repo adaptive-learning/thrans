@@ -1,11 +1,14 @@
 import json
 import math
+import os
 import numpy as np
+import pandas as pd
 import pylab as plt
 from data.data import Data
 from models.elo import EloModel
 from data import utils
-from models.model import AvgModel
+from models.model import AvgModel, AvgItemModel
+import runner
 
 
 class Evaluator:
@@ -14,30 +17,35 @@ class Evaluator:
         self.data = data
         self.hash = utils.hash(model, data)
 
+        if not os.path.isfile("logs/{}.report".format(self.hash)):
+            print "Computing missing data {}; {}".format(data, model)
+            runner.Runner(data, model).run()
+            self.evaluate()
+
         print self.hash
 
     def evaluate(self, brier_bins=20):
         report = self.get_report()
 
-        with open("logs/{}.log".format(self.hash)) as f:
-            n = 0           # log count
-            sse = 0         # sum of square error
-            llsum = 0       # log-likely-hood sum
-            brier_counts = np.zeros(brier_bins)          # count of answers in bins
-            brier_correct = np.zeros(brier_bins)        # sum of correct answers in bins
-            brier_prediction = np.zeros(brier_bins)     # sum of predictions in bins
+        n = 0           # log count
+        sse = 0         # sum of square error
+        llsum = 0       # log-likely-hood sum
+        brier_counts = np.zeros(brier_bins)          # count of answers in bins
+        brier_correct = np.zeros(brier_bins)        # sum of correct answers in bins
+        brier_prediction = np.zeros(brier_bins)     # sum of predictions in bins
 
-            for log in f.readlines():
-                log = json.loads(log)
-                n += 1
-                sse += (log["prediction"] - log["correct"]) ** 2
-                llsum += math.log(log["prediction"] if log["correct"] else (1 - log["prediction"]))
+        self.data.join_predictions(pd.load("logs/{}.pd".format(self.hash)))
 
-                # brier
-                bin = min(int(log["prediction"] * brier_bins), brier_bins - 1)
-                brier_counts[bin] += 1
-                brier_correct[bin] += log["correct"]
-                brier_prediction[bin] += log["prediction"]
+        for log in self.data:
+            n += 1
+            sse += (log["prediction"] - log["correct"]) ** 2
+            llsum += math.log(max(0.0001, log["prediction"] if log["correct"] else (1 - log["prediction"])))
+
+            # brier
+            bin = min(int(log["prediction"] * brier_bins), brier_bins - 1)
+            brier_counts[bin] += 1
+            brier_correct[bin] += log["correct"]
+            brier_prediction[bin] += log["prediction"]
 
         answer_mean = sum(brier_correct) / n
 
@@ -69,7 +77,7 @@ class Evaluator:
         with open("logs/{}.report".format(self.hash), "w") as f:
             json.dump(report, f)
 
-        print str(self)
+        return report
 
     def get_report(self):
         with open("logs/{}.report".format(self.hash)) as f:
@@ -95,7 +103,11 @@ class Evaluator:
             plt.show()
 
 
-experiment = Evaluator(Data("data/geography-first-all.json", test=False), EloModel())
-# experiment = Evaluator(Data("data/geography-first-all.json", test=False), AvgModel())
-experiment.brier_graphs()
-# print experiment
+def compare_models(data, models):
+    for model in models:
+        report = Evaluator(data, model).get_report()
+        print model
+        print "RMSE: {:.5}".format(report["rmse"])
+        print "Brier resolution: {:.4}".format(report["brier"]["resolution"])
+        print "Brier reliability: {:.3}".format(report["brier"]["reliability"])
+        print "=" * 50
