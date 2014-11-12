@@ -98,12 +98,15 @@ class Evaluator:
         counts = np.array(report["zextra"]["brier"]["bin_counts"])
         bins = (np.arange(bin_count) + 0.5) / bin_count
         plt.bar(bins, counts / max(counts), width=(0.5 / bin_count), alpha=0.5)
+        plt.title(self.model)
 
         if show:
             plt.show()
 
 
 def compare_models(data, models):
+    plt.xlabel("RMSE")
+    plt.ylabel("Brier score")
     for model in models:
         report = Evaluator(data, model).get_report()
         print model
@@ -111,3 +114,8 @@ def compare_models(data, models):
         print "Brier resolution: {:.4}".format(report["brier"]["resolution"])
         print "Brier reliability: {:.3}".format(report["brier"]["reliability"])
         print "=" * 50
+
+        x = report["rmse"]
+        y = report["brier"]["reliability"] - report["brier"]["resolution"] + report["brier"]["uncertainty"]
+        plt.plot(x, y, "bo")
+        plt.text(x, y, model, rotation=0, )
