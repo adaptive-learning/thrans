@@ -70,7 +70,7 @@ def filter_states(input="geography-first-all.pd", output=None):
 def filter_europe(input="geography-first-all.pd", output=None):
     data = pd.load(input)
 
-    filtered = data[data["item"].isin([48, 58, 60, 64, 68, 72, 73, 75, 82, 87, 88, 102, 107, 108, 109, 136, 137, 138, 140, 141, 148, 153, 158, 159, 170, 172, 173, 175, 176, 178, 184, 185, 188, 190, 197, 199, 200, 210, 226])]
+    filtered = data[data["item"].isin([51, 64, 66, 70, 74, 78, 79, 81, 88, 93, 94, 108, 113, 114, 115, 142, 143, 144, 146, 147, 154, 159, 164, 165, 176, 178, 179, 181, 182, 184, 190, 191, 194, 196, 203, 205, 206, 216, 234])]
 
     filtered.save(output)
     print filtered
@@ -116,4 +116,5 @@ def filter_small_data(input="geography-first-all.pd", output=None, min_students=
 # filter_states(output="geography-first-states.pd")
 # filter_europe(output="geography-first-europe.pd")
 # filter_cz_cities(output="geography-first-cz_city.pd")
+# filter_small_data(input="geography-first-europe.pd", output="geography-first-europe-filtered.pd", min_items=10)
 # filter_small_data(input="geography-first-cz_city.pd", output="geography-first-cz_city-filtered.pd", min_items=10)
