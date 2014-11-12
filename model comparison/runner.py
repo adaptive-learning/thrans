@@ -84,9 +84,8 @@ def elo_grid_search(data, run=True):
                 report = Evaluator(data, model).evaluate()
             else:
                 report = Evaluator(data, model).get_report()
-
-            results[alpha][beta] = report["brier"]["reliability"]
-            # results[alpha][beta] = report["rmse"]
+            # results[alpha][beta] = report["brier"]["reliability"]
+            results[alpha][beta] = report["rmse"]
     plt.figure()
     plt.title(data)
     plt.pcolor(results)
@@ -112,8 +111,7 @@ def elo_corr_grid_search(data, run=True):
                 report = Evaluator(data, model).evaluate()
             else:
                 report = Evaluator(data, model).get_report()
-
-            results[prior][corr_place] = report["brier"]["reliability"]
+            results[prior][corr_place] = report["rmse"]
     plt.figure()
     plt.title(data)
     plt.pcolor(results)
