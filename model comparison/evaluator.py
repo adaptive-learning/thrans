@@ -119,3 +119,25 @@ def compare_models(data, models):
         y = report["brier"]["reliability"] - report["brier"]["resolution"] + report["brier"]["uncertainty"]
         plt.plot(x, y, "bo")
         plt.text(x, y, model, rotation=0, )
+
+
+def compare_brier_curve(data, model1, model2):
+    report1 = Evaluator(data, model1).get_report()
+    report2 = Evaluator(data, model2).get_report()
+
+    plt.figure()
+    plt.plot(report1["zextra"]["brier"]["bin_prediction_means"], report1["zextra"]["brier"]["bin_correct_means"], "g", label="M1")
+    plt.plot(report2["zextra"]["brier"]["bin_prediction_means"], report2["zextra"]["brier"]["bin_correct_means"], "b", label="M2")
+    plt.plot((0, 1), (0, 1), "r")
+
+    bin_count = report1["zextra"]["brier"]["bin_count"]
+    counts1 = np.array(report1["zextra"]["brier"]["bin_counts"])
+    counts2 = np.array(report2["zextra"]["brier"]["bin_counts"])
+    bins = (np.arange(bin_count) + 0.5) / bin_count
+    plt.bar(bins, counts1 / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.2, color="g")
+    plt.bar(bins, counts2 / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.2, color="b")
+    plt.bar(bins, (counts1 - counts2) / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.8, color="r")
+
+    plt.title("{}\n{}".format(model1, model2))
+
+    plt.legend(loc=2)
