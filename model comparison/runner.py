@@ -75,6 +75,7 @@ def elo_grid_search(data, run=True):
     betas = np.arange(0.02, 0.2, 0.02)
 
     results = pd.DataFrame(columns=alphas, index=betas, dtype=float)
+    plt.figure()
     for alpha in alphas:
         for beta in betas:
 
@@ -86,13 +87,13 @@ def elo_grid_search(data, run=True):
                 report = Evaluator(data, model).get_report()
             # results[alpha][beta] = report["brier"]["reliability"]
             results[alpha][beta] = report["rmse"]
-    plt.figure()
     plt.title(data)
     plt.pcolor(results)
     plt.yticks(np.arange(0.5, len(results.index), 1), results.index)
     plt.ylabel("betas")
     plt.xticks(np.arange(0.5, len(results.columns), 1), results.columns)
     plt.xlabel("alphas")
+    plt.colorbar()
 
 
 
@@ -112,6 +113,7 @@ def elo_corr_grid_search(data, run=True):
             else:
                 report = Evaluator(data, model).get_report()
             results[prior][corr_place] = report["rmse"]
+
     plt.figure()
     plt.title(data)
     plt.pcolor(results)
@@ -119,4 +121,4 @@ def elo_corr_grid_search(data, run=True):
     plt.ylabel("corr_place_weights")
     plt.xticks(np.arange(0.5, len(results.columns), 1), results.columns)
     plt.xlabel("prior_weights")
-
+    plt.colorbar()

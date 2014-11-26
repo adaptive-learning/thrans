@@ -1,6 +1,8 @@
+from collections import defaultdict
 import json
 from hashlib import sha1
 import pandas as pd
+from proso.geography import places, answers
 
 
 def hash(model, data):
@@ -61,7 +63,9 @@ def filter_first(input="geography-all.pd", output=None):
 def filter_states(input="geography-first-all.pd", output=None):
     data = pd.load(input)
 
-    filtered = data[data["type"] == 1]
+    places = reduce(list.__add__, get_continents_country_maps().values(), [])
+
+    filtered = data[data["item"].isin(places)]
 
     filtered.save(output)
     print filtered
@@ -70,7 +74,8 @@ def filter_states(input="geography-first-all.pd", output=None):
 def filter_europe(input="geography-first-all.pd", output=None):
     data = pd.load(input)
 
-    filtered = data[data["item"].isin([51, 64, 66, 70, 74, 78, 79, 81, 88, 93, 94, 108, 113, 114, 115, 142, 143, 144, 146, 147, 154, 159, 164, 165, 176, 178, 179, 181, 182, 184, 190, 191, 194, 196, 203, 205, 206, 216, 234])]
+    places = get_maps()["Europe-country"]
+    filtered = data[data["item"].isin(places)]
 
     filtered.save(output)
     print filtered
@@ -79,8 +84,8 @@ def filter_europe(input="geography-first-all.pd", output=None):
 def filter_cz_cities(input="geography-first-all.pd", output=None):
     data = pd.load(input)
 
-    filtered = data[631 <= data["item"]]
-    filtered = filtered[754 >= filtered["item"]]
+    places = get_maps()["Czech Rep.-city"]
+    filtered = data[data["item"].isin(places)]
 
     filtered.save(output)
     print filtered
@@ -111,10 +116,69 @@ def filter_small_data(input="geography-first-all.pd", output=None, min_students=
     print data
 
 
+
+def find_maps():
+    types = {
+        1: "country",
+        2: "city",
+        3: "world",
+        4: "continent",
+        5: "river",
+        6: "lake",
+        7: "region-(cz)",
+        8: "bundesland",
+        9: "province",
+        10: "region-(it)",
+        11: "region",
+        12: "autonomus-community",
+        13: "mountains",
+        14: "island",
+    }
+
+    # answers_all = answers.from_csv("raw data/geography-all.csv")
+    maps = defaultdict(lambda: [])
+    places_all = places.from_csv("raw data/geography.place.csv", "raw data/geography.placerelation.csv","raw data/geography.placerelation_related_places.csv")
+    places_all.set_index(places_all["id"], inplace=True)
+    for _, place in places_all.iterrows():
+        for id, relation in place.relations:
+            if relation == "is_on_map":
+                key = places_all.ix[id]["name"]+"-"+types[place.type]
+                maps[key].append(place.id)
+
+    with open("maps.json", "w") as f:
+        json.dump(maps, f)
+
+
+def get_maps(folder="", filter=None):
+    with open(folder+"maps.json") as f:
+        maps = json.load(f)
+
+    if filter is not None:
+        new = {}
+        for map in filter:
+            new[map] = maps[map]
+        maps = new
+
+    return maps
+
+
+def get_continents_country_maps(folder=""):
+    return get_maps(folder, ["United States-country", "Australia-country", u"Jizni Amerika-country", "Africa-country", "Asia-country", u"Severni Amerika-country", "Europe-country"])
+
+# maps = get_maps()
+# places_all = places.from_csv("raw data/geography.place.csv", "raw data/geography.placerelation.csv","raw data/geography.placerelation_related_places.csv")
+# places_all.set_index(places_all["id"], inplace=True)
+# print places_all.ix[482]
+# for p in maps["Czech Rep.-city"]:
+#     print places_all.ix[p]
+
+
+
 # geography_data_parser("geography-all.pd")
 # filter_first(output="geography-first-all.pd")
 # filter_states(output="geography-first-states.pd")
 # filter_europe(output="geography-first-europe.pd")
 # filter_cz_cities(output="geography-first-cz_city.pd")
-# filter_small_data(input="geography-first-europe.pd", output="geography-first-europe-filtered.pd", min_items=10)
+# filter_small_data(input="geography-first-states.pd", output="geography-first-states-filtered.pd", min_items=10)
 # filter_small_data(input="geography-first-cz_city.pd", output="geography-first-cz_city-filtered.pd", min_items=10)
+# filter_small_data(input="geography-first-europe.pd", output="geography-first-europe-filtered.pd", min_items=10)

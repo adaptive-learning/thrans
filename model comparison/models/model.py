@@ -61,8 +61,8 @@ class AvgItemModel(Model):
         items = data.get_items()
         self.corrects = pd.Series(index=items)
         self.counts = pd.Series(index=items)
-        self.corrects.fill(0)
-        self.counts.fill(0)
+        self.corrects[:] = 0
+        self.counts[:] = 0
 
     def process(self, student, item, correct, extra=None):
         ret = self.corrects[item] / self.counts[item] if self.counts[item] > 0 else 0.7

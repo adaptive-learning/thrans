@@ -32,7 +32,7 @@ class Data():
 
     def load_file(self):
         if self.data is None:
-            self.data = pd.load(self.file)
+            self.data = pd.read_pickle(self.file)
 
             if self.train is not None:
                 random.seed(42)
@@ -80,47 +80,3 @@ class Data():
             if i % 10000 == 0:
                 print ".",
         print
-
-
-def find_maps():
-    types = {
-        1: "country",
-        2: "city",
-        3: "world",
-        4: "continent",
-        5: "river",
-        6: "lake",
-        7: "region-(cz)",
-        8: "bundesland",
-        9: "province",
-        10: "region-(it)",
-        11: "region",
-        12: "autonomus-community",
-        13: "mountains",
-        14: "island",
-    }
-
-    # answers_all = answers.from_csv("raw data/geography-all.csv")
-    maps = defaultdict(lambda: [])
-    places_all = places.from_csv("raw data/geography.place.csv", "raw data/geography.placerelation.csv","raw data/geography.placerelation_related_places.csv")
-    places_all.set_index(places_all["id"], inplace=True)
-    for _, place in places_all.iterrows():
-        for id, relation in place.relations:
-            if relation == "is_on_map":
-                key = places_all.ix[id]["name"]+"-"+types[place.type]
-                maps[key].append(place.id)
-
-    with open("maps.json", "w") as f:
-        json.dump(maps, f)
-
-
-def get_maps():
-    with open("maps.json") as f:
-        return json.load(f)
-
-
-# maps = get_maps()
-# places_all = places.from_csv("raw data/geography.place.csv", "raw data/geography.placerelation.csv","raw data/geography.placerelation_related_places.csv")
-# places_all.set_index(places_all["id"], inplace=True)
-# for p in maps["Czech Rep.-city"]:
-#     print places_all.ix[p]

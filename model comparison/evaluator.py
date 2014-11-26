@@ -84,6 +84,10 @@ class Evaluator:
             report = json.load(f)
         return report
 
+    def save_report(self, report):
+        with open("logs/{}.report".format(self.hash), "w") as f:
+            json.dump(report, f)
+
     def __str__(self):
         return json.dumps(self.get_report(), sort_keys=True, indent=4, )
 
@@ -104,7 +108,9 @@ class Evaluator:
             plt.show()
 
 
-def compare_models(data, models):
+def compare_models(data, models, dont=False):
+    if dont:
+        return
     plt.xlabel("RMSE")
     plt.ylabel("Brier score")
     for model in models:
@@ -141,3 +147,46 @@ def compare_brier_curve(data, model1, model2):
     plt.title("{}\n{}".format(model1, model2))
 
     plt.legend(loc=2)
+
+def group_rmse(data, models, groups, dont=False):
+    if dont:
+        return
+    from hashlib import sha1
+    plt.figure()
+    plt.ylabel("RMSE")
+    colors = ["blue", "red", "green", "black", "cyan", "yellow", "purple"]
+
+    for i, model in enumerate(models):
+        groups_hash = "group_{}".format(sha1(";".join(groups.keys())).hexdigest()[:10])
+        report = Evaluator(data, model).get_report()
+        if groups_hash not in report:
+            group_map = {}
+            groups_names = []
+            for group, items in groups.items():
+                groups_names.append(group)
+                for item in items:
+                    group_map[item] = group
+
+            n = pd.Series(index=groups_names).fillna(0)           # log count
+            sse = pd.Series(index=groups_names).fillna(0)         # sum of square error
+
+            data.join_predictions(pd.load("logs/{}.pd".format(utils.hash(model, data))))
+
+            for log in data:
+                group = group_map[log["item"]]
+                n[group] += 1
+                sse[group] += (log["prediction"] - log["correct"]) ** 2
+
+            report[groups_hash] = (sse / n).apply(math.sqrt).to_dict()
+            Evaluator(data, model).save_report(report)
+
+        s = pd.Series()
+        for g, v in report[groups_hash].items():
+            s[g] = v
+
+        s = s[s.notnull()]
+
+        plt.bar(np.arange(len(s))+i*0.8/len(models), s.values, color=colors[i], width=0.8/len(models), label=str(model)[:50])
+        plt.xticks(np.arange(len(s))+0.5, s.index, rotation=-90)
+
+    plt.legend(loc=4)

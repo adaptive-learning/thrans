@@ -4,13 +4,14 @@ from hashlib import sha1
 
 class EloCorrModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0):
+    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0, place_decay=False):
         Model.__init__(self)
 
         self.corr = None
 
         self.alpha = alpha
         self.beta = beta
+        self.place_decay = place_decay
         self.decay_function = decay_function if decay_function is not None else lambda x: alpha / (1 + beta * x)
         self.corr_place_weight = corr_place_weight
         self.prior_weight = prior_weight
@@ -22,8 +23,8 @@ class EloCorrModel(Model):
         self.local_skill = {}
 
     def __str__(self):
-        return "Elo with correlations; decay - alpha: {}, beta: {}, prior_weight {}, corr_place_weight {}"\
-            .format(self.alpha, self.beta, self.prior_weight, self.corr_place_weight)
+        return "Elo with correlations{}; decay - alpha: {}, beta: {}, prior_weight {}, corr_place_weight {}"\
+            .format(" plDe" if self.place_decay else "", self.alpha, self.beta, self.prior_weight, self.corr_place_weight)
 
     def pre_process_data(self, data):
         try:
@@ -66,7 +67,8 @@ class EloCorrModel(Model):
         prediction = sigmoid(skill - self.difficulty[item], random_factor)
         dif = (correct - prediction)
 
-        self.local_skill[student] += dif * self.corr[item]
+        decay = self.decay_function(self.student_attempts[student]) if self.place_decay else 1
+        self.local_skill[student] += dif * self.corr[item] * decay
 
         self.global_skill[student] += self.decay_function(self.student_attempts[student]) * dif
         self.difficulty[item] -= self.decay_function(self.place_attempts[item]) * dif
