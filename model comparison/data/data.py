@@ -29,6 +29,9 @@ class Data():
         self.load_file()
         return self.data_train
 
+    def get_dataframe_all(self):
+        self.load_file()
+        return self.all_data
 
     def load_file(self):
         if self.data is None:
@@ -38,6 +41,7 @@ class Data():
                 random.seed(42)
                 students = self.get_students()
                 selected_students = random.sample(students, int(len(students) * self.train))
+                self.all_data = self.data
                 self.data_train = self.data[self.data["student"].isin(selected_students)]
                 self.data = self.data[~self.data["student"].isin(selected_students)]
 
@@ -75,6 +79,18 @@ class Data():
         columns = self.data_train.columns.values
         i = 0
         for row in self.data_train.values:
+            i += 1
+            yield dict(zip(columns, row))
+            if i % 10000 == 0:
+                print ".",
+        print
+
+    def all_iter(self):
+        self.load_file()
+
+        columns = self.all_data.columns.values
+        i = 0
+        for row in self.all_data.values:
             i += 1
             yield dict(zip(columns, row))
             if i % 10000 == 0:

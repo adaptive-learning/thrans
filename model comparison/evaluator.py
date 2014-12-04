@@ -1,14 +1,16 @@
 import json
 import math
-import os
 import numpy as np
 import pandas as pd
 import pylab as plt
+import scipy
 from data.data import Data
+from data.utils import *
 from models.elo import EloModel
 from data import utils
 from models.model import AvgModel, AvgItemModel
 import runner
+from hashlib import sha1
 
 
 class Evaluator:
@@ -196,3 +198,30 @@ def group_rmse(data, models, groups, dont=False):
         plt.xticks(np.arange(len(s))+0.5, s.index, rotation=-90)
 
     plt.legend(loc=4)
+
+
+def corr_stats(data, min_periods=100, test_dataset=True):
+    # corr = pd.read_pickle("data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10]))
+    corr, hits, nans = compute_correlations(data, guess_decay=True, min_periods=min_periods, test=test_dataset, hits=True)
+
+    map = get_id_place_map("data/")
+    corr.unstack().hist(bins=30)
+    hits.unstack().hist(bins=30)
+    # plt.plot(corr.unstack(), hits.unstack(), ".")
+
+    name = "Dataset: {}, min common students: {}, only train set: {}".format(data, min_periods, test_dataset).replace("/", "-")
+    for id, place in corr.iteritems():
+        corr.ix[id, "name"] = map[id]
+
+
+
+    with open("results/correlations/best_ten "+name+".txt", "w") as f:
+        f.write("NaNs in correlation matrix: " + str(nans)+"\n")
+        corr.sort("name", inplace=True)
+        for id, place in corr.iterrows():
+            if id != "name":
+                place = place.order(ascending=False)
+                if id != place.index[0]:
+                    "Something went wrong"
+                print map[id],  [(map[id2], round(place[id2],3), hits.ix[id, id2]) for id2 in place.index[1:12]]
+                f.write(map[id]+" - "+str([(map[id2], round(place[id2],3), hits.ix[id, id2]) for id2 in place.index[1:12]])+"\n")

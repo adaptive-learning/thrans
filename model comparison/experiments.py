@@ -65,14 +65,21 @@ compare_models(data_europe, [
     AvgModel(),
     AvgItemModel(),
     EloTimeModel(),
-    EloModel(alpha=1.2),
-    # EloClusterModel(clusters=maps_continents_country),
-    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
-    # EloClusterModel(clusters=maps_continents_country, separate=True),
-    # EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
-    # EloTreeModel(clusters=maps_continents_country, local_update_boost=1),
+    EloModel(alpha=1.2, beta=.12),
+    EloClusterModel(clusters=europe_clusters),
+    EloCorrModel(corr_place_weight=1., prior_weight=0.6),
+    EloTreeModel(clusters=europe_clusters, local_update_boost=0.2),
 ], dont=True)
 
+group_rmse(data_europe, [
+    AvgModel(),
+    AvgItemModel(),
+    EloTimeModel(),
+    EloModel(alpha=1.2, beta=.12),
+    EloClusterModel(clusters=europe_clusters),
+    EloCorrModel(corr_place_weight=1., prior_weight=0.6),
+    EloTreeModel(clusters=europe_clusters, local_update_boost=0.2),
+    ], europe_clusters, dont=True)
 
 
 group_rmse(data_states, [
@@ -92,6 +99,13 @@ group_rmse(data_states, [
 # elo_corr_grid_search(data_europe, run=False)
 # elo_corr_grid_search(data_cz_cities, run=False)
 
+corr_stats(data_europe, min_periods=1, test_dataset=True)
 
 
 plt.show()
+
+# TODO sepsat to - related work; vzorezcky
+# TODO correlace - jake jsou;
+# TODO Elo corr - jak to delat jinak
+# TODO hiearchucal skills - jak to delaji jinde, jak to delat jinak
+# TODO alpha, beta, pocitat z train_setu
