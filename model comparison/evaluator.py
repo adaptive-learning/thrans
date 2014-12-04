@@ -108,11 +108,14 @@ class Evaluator:
             plt.show()
 
 
-def compare_models(data, models, dont=False):
+def compare_models(data, models, dont=False, resolution=True):
     if dont:
         return
     plt.xlabel("RMSE")
-    plt.ylabel("Brier score")
+    if resolution:
+        plt.ylabel("Resolution")
+    else:
+        plt.ylabel("Brier score")
     for model in models:
         report = Evaluator(data, model).get_report()
         print model
@@ -122,7 +125,10 @@ def compare_models(data, models, dont=False):
         print "=" * 50
 
         x = report["rmse"]
-        y = report["brier"]["reliability"] - report["brier"]["resolution"] + report["brier"]["uncertainty"]
+        if resolution:
+            y = report["brier"]["resolution"]
+        else:
+            y = report["brier"]["reliability"] - report["brier"]["resolution"] + report["brier"]["uncertainty"]
         plt.plot(x, y, "bo")
         plt.text(x, y, model, rotation=0, )
 
