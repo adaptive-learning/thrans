@@ -156,10 +156,56 @@ def compare_brier_curve(data, model1, model2):
 
     plt.legend(loc=2)
 
+
+def get_group_map(groups):
+    group_map = {}
+    groups_names = []
+    for group, items in groups.items():
+        groups_names.append(group)
+        for item in items:
+            group_map[item] = group
+
+    return group_map, groups_names
+
+
+def group_calibration(data, models, groups, dont=False):
+    if dont:
+        return
+    plt.figure()
+    colors = ["blue", "red", "green", "black", "cyan", "yellow", "purple"]
+
+    group_map, groups_names = get_group_map(groups)
+
+    for i, model in enumerate(models):
+
+        group_map, groups_names = get_group_map(groups)
+
+        real = pd.Series(index=groups_names).fillna(0)         # sum success
+        real_std = pd.Series(index=groups_names).fillna(0)         # sum success
+        predicted = pd.Series(index=groups_names).fillna(0)         # sum predicted
+        predicted_std = pd.Series(index=groups_names).fillna(0)         # sum predicted
+
+        data.join_predictions(pd.read_pickle("logs/{}.pd".format(utils.hash(model, data))))
+        df = data.get_dataframe()
+        for name, group in groups.items():
+            real[name] = df[df["item"].isin(group)]["correct"].mean()
+            # real_std[name] = df[df["item"].isin(group)]["correct"].std()
+            predicted[name] = df[df["item"].isin(group)]["prediction"].mean()
+            # predicted_std[name] = df[df["item"].isin(group)]["prediction"].std()
+
+        real = real[real.notnull()]
+        predicted = predicted[predicted.notnull()]
+
+        plt.bar(np.arange(len(predicted))+((i+1)*0.8)/len(models), predicted.values, color=colors[i+1], width=0.8/len(models), label=str(model)[:50])
+
+    plt.xticks(np.arange(len(predicted))+0.5, predicted.index, rotation=-90)
+    plt.bar(np.arange(len(real)), real.values, color=colors[0], width=0.8/len(models), label="observed", hatch="///")
+
+    plt.legend(loc=4)
+
 def group_rmse(data, models, groups, dont=False):
     if dont:
         return
-    from hashlib import sha1
     plt.figure()
     plt.ylabel("RMSE")
     colors = ["blue", "red", "green", "black", "cyan", "yellow", "purple"]
@@ -168,12 +214,7 @@ def group_rmse(data, models, groups, dont=False):
         groups_hash = "group_{}".format(sha1(";".join(groups.keys())).hexdigest()[:10])
         report = Evaluator(data, model).get_report()
         if groups_hash not in report:
-            group_map = {}
-            groups_names = []
-            for group, items in groups.items():
-                groups_names.append(group)
-                for item in items:
-                    group_map[item] = group
+            group_map, groups_names = get_group_map(groups)
 
             n = pd.Series(index=groups_names).fillna(0)           # log count
             sse = pd.Series(index=groups_names).fillna(0)         # sum of square error

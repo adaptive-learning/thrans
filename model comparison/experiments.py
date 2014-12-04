@@ -45,6 +45,7 @@ maps_continents_country = get_continents_country_maps("data/")
 compare_models(data_states, [
     AvgModel(),
     AvgItemModel(),
+    EloModel(),
     EloModel(alpha=1.2),
     EloTimeModel(),
 ], dont=True)
@@ -99,7 +100,15 @@ group_rmse(data_states, [
 # elo_corr_grid_search(data_europe, run=False)
 # elo_corr_grid_search(data_cz_cities, run=False)
 
-corr_stats(data_europe, min_periods=1, test_dataset=True)
+# corr_stats(data_europe, min_periods=1, test_dataset=True)
+
+group_calibration(data_states, [
+    AvgItemModel(),
+    EloModel(alpha=1.2),
+    EloClusterModel(clusters=maps_continents_country),
+    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
+    EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
+], maps_continents_country)
 
 
 plt.show()
