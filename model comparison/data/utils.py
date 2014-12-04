@@ -165,6 +165,9 @@ def get_maps(folder="", filter=None):
 def get_continents_country_maps(folder=""):
     return get_maps(folder, ["United States-country", "Australia-country", u"Jizni Amerika-country", "Africa-country", "Asia-country", u"Severni Amerika-country", "Europe-country"])
 
+
+europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'europe-0': [79, 88, 108, 113, 114, 115, 144, 146, 159, 176, 178, 179, 182, 184, 191, 194, 203, 216], 'europe-2': [64, 81, 93, 94, 142, 143, 164, 165, 181, 205, 206]}
+
 # maps = get_maps()
 # places_all = places.from_csv("raw data/geography.place.csv", "raw data/geography.placerelation.csv","raw data/geography.placerelation_related_places.csv")
 # places_all.set_index(places_all["id"], inplace=True)
