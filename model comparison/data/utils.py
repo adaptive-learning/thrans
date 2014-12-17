@@ -5,6 +5,7 @@ import numpy as np
 import os
 import pandas as pd
 from proso.geography import places, answers
+from data import Data
 
 
 def compute_correlations(data, method="spearman", guess_decay=True, test=True,  min_periods=1, hits=False):
@@ -231,3 +232,7 @@ europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'e
 # filter_small_data(input="geography-first-states.pd", output="geography-first-states-filtered.pd", min_items=10)
 # filter_small_data(input="geography-first-cz_city.pd", output="geography-first-cz_city-filtered.pd", min_items=10)
 # filter_small_data(input="geography-first-europe.pd", output="geography-first-europe-filtered.pd", min_items=10)/
+
+# filter_small_data(input="geography-first-all.pd", output="geography-first-all-filtered.pd", min_items=10)
+# d = Data("geography-first-all-filtered.pd", train=0.3)
+# d.get_dataframe().to_csv("test.csv")
