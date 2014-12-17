@@ -96,6 +96,24 @@ def elo_grid_search(data, run=True):
     plt.colorbar()
 
 
+def elo_grid_search_gamma(data, run=True):
+    alpha = 1
+    beta = 0
+    gammas = np.arange(0, 1, 0.1)
+
+    results = pd.Series(index=gammas)
+    plt.figure()
+    for gamma in gammas:
+        model = EloModel(alpha=alpha-gamma, beta=beta, gamma=gamma)
+        report = Evaluator(data, model).get_report()
+        # results[alpha][beta] = report["brier"]["reliability"]
+        results[gamma] = report["rmse"]
+
+    plt.title(data)
+    plt.plot(results.index, results)
+    plt.xlabel("gamma")
+
+
 
 def elo_corr_grid_search(data, run=True):
 
