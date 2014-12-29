@@ -81,7 +81,7 @@ class Evaluator:
 
         return report
 
-    def get_report(self):
+    def   get_report(self):
         with open("logs/{}.report".format(self.hash)) as f:
             report = json.load(f)
         return report
@@ -172,12 +172,11 @@ def group_calibration(data, models, groups, dont=False):
     if dont:
         return
     plt.figure()
-    colors = ["blue", "red", "green", "black", "cyan", "yellow", "purple"]
+    colors = ["blue", "red", "green", "cyan", "yellow", "purple", "black",]
 
     group_map, groups_names = get_group_map(groups)
 
     for i, model in enumerate(models):
-
         group_map, groups_names = get_group_map(groups)
 
         real = pd.Series(index=groups_names).fillna(0)         # sum success
@@ -196,10 +195,10 @@ def group_calibration(data, models, groups, dont=False):
         real = real[real.notnull()]
         predicted = predicted[predicted.notnull()]
 
-        plt.bar(np.arange(len(predicted))+((i+1)*0.8)/len(models), predicted.values, color=colors[i+1], width=0.8/len(models), label=str(model)[:50])
+        plt.bar(np.arange(len(predicted))+((i+1)*0.8)/(len(models)+1), predicted.values, color=colors[i+1], width=0.8/(len(models) + 1), label=str(model)[:50])
 
     plt.xticks(np.arange(len(predicted))+0.5, predicted.index, rotation=-90)
-    plt.bar(np.arange(len(real)), real.values, color=colors[0], width=0.8/len(models), label="observed", hatch="///")
+    plt.bar(np.arange(len(real)), real.values, color=colors[0], width=0.8/(len(models) + 1), label="observed", hatch="///")
 
     plt.legend(loc=4)
 
@@ -239,6 +238,46 @@ def group_rmse(data, models, groups, dont=False):
         plt.xticks(np.arange(len(s))+0.5, s.index, rotation=-90)
 
     plt.legend(loc=4)
+
+
+def options_rmse(data, models, nothing=None, dont=False):
+    if dont:
+        return
+    plt.figure()
+    plt.ylabel("RMSE")
+    colors = ["blue", "red", "green", "black", "cyan", "yellow", "purple"]
+
+    for i, model in enumerate(models):
+        report = Evaluator(data, model).get_report()
+        option_field_name = "options-count-rmse"
+        if option_field_name not in report:
+
+            max_choices = data.get_dataframe()["choices"].max()
+
+            n = pd.Series(index=range(max_choices+1)).fillna(0)           # log count
+            sse = pd.Series(index=range(max_choices+1)).fillna(0)         # sum of square error
+
+            data.join_predictions(pd.load("logs/{}.pd".format(utils.hash(model, data))))
+
+            for log in data:
+                group = log["choices"]
+                n[group] += 1
+                sse[group] += (log["prediction"] - log["correct"]) ** 2
+
+            report[option_field_name] = (sse / n).apply(math.sqrt).to_dict()
+            Evaluator(data, model).save_report(report)
+
+        s = pd.Series()
+        for g, v in report[option_field_name].items():
+            s[str(g)] = v
+
+        s = s[s.notnull()]
+
+        plt.bar(np.arange(len(s))+i*0.8/len(models), s.values, color=colors[i], width=0.8/len(models), label=str(model)[:50])
+        plt.xticks(np.arange(len(s))+0.5, s.index, rotation=-90)
+
+    plt.legend(loc=4)
+
 
 
 def corr_stats(data, min_periods=100, test_dataset=True):
