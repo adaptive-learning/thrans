@@ -3,12 +3,16 @@ from model import Model, sigmoid
 
 class EloModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.1, decay_function=None):
+    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, gamma=None):
         Model.__init__(self)
 
         self.alpha = alpha
         self.beta = beta
-        self.decay_function = decay_function if decay_function is not None else lambda x: alpha / (1 + beta * x)
+        self.gamma = gamma
+        if gamma is None:
+            self.decay_function = decay_function if decay_function is not None else lambda x: alpha / (1 + beta * x)
+        else:
+            self.decay_function = decay_function if decay_function is not None else lambda x: gamma + alpha / (1 + beta * x)
 
         self.global_skill = {}
         self.difficulty = {}
@@ -16,7 +20,10 @@ class EloModel(Model):
         self.place_attempts = {}
 
     def __str__(self):
-        return "Elo; decay - alpha: {}, beta: {}".format(self.alpha, self.beta)
+        if self.gamma is None:
+            return "Elo; decay - alpha: {}, beta: {}".format(self.alpha, self.beta)
+        else:
+            return "Elo; decay - alpha: {}, beta: {}, gamma: {}".format(self.alpha, self.beta, self.gamma)
 
     def initialize_if_needed(self, student, item):
         if not student in self.global_skill:
