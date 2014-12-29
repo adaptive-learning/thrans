@@ -87,11 +87,12 @@ def geography_data_parser(output, input="raw data/geography-all.csv"):
     data.save(output)
 
 
-def filter_first(input="geography-all.pd", output=None):
+def filter_first(input="geography-all-2.pd", output=None):
     data = pd.load(input)
 
-    filtered = data.groupby(["student"]). \
-        apply(lambda x: x.drop_duplicates('item'))
+    data.sort("id", inplace=True)
+
+    filtered = data.drop_duplicates(['student', 'item'])
     filtered["index"] = filtered["id"]
     filtered.set_index("index", inplace=True)
 
@@ -99,7 +100,7 @@ def filter_first(input="geography-all.pd", output=None):
     print filtered
 
 
-def filter_states(input="geography-first-all.pd", output=None):
+def filter_states(input="geography-first-all-2.pd", output=None):
     data = pd.load(input)
 
     places = reduce(list.__add__, get_continents_country_maps().values(), [])
@@ -110,7 +111,7 @@ def filter_states(input="geography-first-all.pd", output=None):
     print filtered
 
 
-def filter_europe(input="geography-first-all.pd", output=None):
+def filter_europe(input="geography-first-all-2.pd", output=None):
     data = pd.load(input)
 
     places = get_maps()["Europe-country"]
@@ -120,7 +121,7 @@ def filter_europe(input="geography-first-all.pd", output=None):
     print filtered
 
 
-def filter_cz_cities(input="geography-first-all.pd", output=None):
+def filter_cz_cities(input="geography-first-all-2.pd", output=None):
     data = pd.load(input)
 
     places = get_maps()["Czech Rep.-city"]
@@ -130,7 +131,7 @@ def filter_cz_cities(input="geography-first-all.pd", output=None):
     print filtered
 
 
-def filter_small_data(input="geography-first-all.pd", output=None, min_students=200, min_items=20):
+def filter_small_data(input="geography-first-all.pd-2", output=None, min_students=200, min_items=20):
     data = pd.load(input)
 
     valid_users = map(
@@ -156,7 +157,7 @@ def filter_small_data(input="geography-first-all.pd", output=None, min_students=
 
 
 
-def find_maps():
+def find_maps(just_types=False):
     types = {
         1: "country",
         2: "city",
@@ -181,15 +182,20 @@ def find_maps():
     for _, place in places_all.iterrows():
         for id, relation in place.relations:
             if relation == "is_on_map":
-                key = places_all.ix[id]["name"]+"-"+types[place.type]
+                if just_types:
+                    key = types[place.type]
+                else:
+                    key = places_all.ix[id]["name"]+"-"+types[place.type]
                 maps[key].append(place.id)
 
-    with open("maps.json", "w") as f:
+    filename = "types.json" if just_types else "maps.json"
+    with open(filename, "w") as f:
         json.dump(maps, f)
 
 
-def get_maps(folder="", filter=None):
-    with open(folder+"maps.json") as f:
+def get_maps(folder="", filter=None, just_types=False):
+    filename = "types.json" if just_types else "maps.json"
+    with open(folder+filename) as f:
         maps = json.load(f)
 
     if filter is not None:
@@ -213,6 +219,16 @@ def get_continents_country_maps(folder=""):
     return get_maps(folder, ["United States-country", "Australia-country", u"Jizni Amerika-country", "Africa-country", "Asia-country", u"Severni Amerika-country", "Europe-country"])
 
 
+def get_train_students():
+    train = pd.DataFrame.from_csv("raw data/answers_train.csv", index_col=False)
+    # test = pd.DataFrame.from_csv("raw data/answers_test.csv", index_col=False)
+    # all = pd.DataFrame.from_csv("raw data/answers_all.csv", index_col=False)
+
+    # print len(set(train["user"]))
+    # print len(set(test["user"]))
+    # print len(set(all["user"]))
+    json.dump(list(train["user"]), open("train_users.json", "w"))
+
 europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'europe-0': [79, 88, 108, 113, 114, 115, 144, 146, 159, 176, 178, 179, 182, 184, 191, 194, 203, 216], 'europe-2': [64, 81, 93, 94, 142, 143, 164, 165, 181, 205, 206]}
 
 # maps = get_maps()
@@ -224,15 +240,19 @@ europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'e
 
 
 
-# geography_data_parser("geography-all.pd")
-# filter_first(output="geography-first-all.pd")
-# filter_states(output="geography-first-states.pd")
-# filter_europe(output="geography-first-europe.pd")
-# filter_cz_cities(output="geography-first-cz_city.pd")
-# filter_small_data(input="geography-first-states.pd", output="geography-first-states-filtered.pd", min_items=10)
-# filter_small_data(input="geography-first-cz_city.pd", output="geography-first-cz_city-filtered.pd", min_items=10)
-# filter_small_data(input="geography-first-europe.pd", output="geography-first-europe-filtered.pd", min_items=10)/
+# geography_data_parser("geography-all-2.pd", input="raw data/answers_all.csv")
+# filter_first(output="geography-first-all-2.pd")
+# filter_states(output="geography-first-states-2.pd")
+# filter_europe(output="geography-first-europe-2.pd")
+# filter_cz_cities(output="geography-first-cz_city-2.pd")
+# filter_small_data(input="geography-first-states-2.pd", output="geography-first-states-filtered-2.pd", min_items=10)
+# filter_small_data(input="geography-first-cz_city-2.pd", output="geography-first-cz_city-filtered-2.pd", min_items=10)
+# filter_small_data(input="geography-first-europe-2.pd", output="geography-first-europe-filtered-2.pd", min_items=10)
 
-# filter_small_data(input="geography-first-all.pd", output="geography-first-all-filtered.pd", min_items=10)
-# d = Data("geography-first-all-filtered.pd", train=0.3)
-# d.get_dataframe().to_csv("test.csv")
+# filter_small_data(input="geography-first-all-2.pd", output="geography-first-all-filtered-2.pd", min_items=10)
+# d = Data("geography-first-all.pd", train=0.3)
+# d.get_train_dataframe().to_csv("train-all.csv")
+
+# get_train_students()
+
+# find_maps(just_types=True)

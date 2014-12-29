@@ -1,18 +1,20 @@
 from collections import defaultdict
 import json
+import os
 from proso.geography import places, answers
 import random
 import pandas as pd
 
 
 class Data():
-    def __init__(self, filename, test=False, train=None):
+    def __init__(self, filename, test=False, train=None, force_train=False):
         self.file = filename
         self.test = test
         self.n = -1         # not counted yet
         self.data = None
         self.data_train = None
         self.train = train
+        self.force_train = force_train
 
     def __str__(self):
         if self.test:
@@ -38,9 +40,12 @@ class Data():
             self.data = pd.read_pickle(self.file)
 
             if self.train is not None:
-                random.seed(42)
-                students = self.get_students()
-                selected_students = random.sample(students, int(len(students) * self.train))
+                if self.force_train:
+                    random.seed(42)
+                    students = self.get_students()
+                    selected_students = random.sample(students, int(len(students) * self.train))
+                else:
+                    selected_students = json.load(open(os.path.dirname(os.path.abspath(__file__)) + "/train_users.json"))
                 self.all_data = self.data
                 self.data_train = self.data[self.data["student"].isin(selected_students)]
                 self.data = self.data[~self.data["student"].isin(selected_students)]
