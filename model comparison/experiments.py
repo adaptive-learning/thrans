@@ -9,9 +9,13 @@ from models.elo_clust import *
 from models.elo_time import *
 import pylab as plt
 
-data_states = Data("data/geography-first-states-filtered.pd", train=0.3)
-data_europe = Data("data/geography-first-europe-filtered.pd", train=0.3)
-data_cz_cities = Data("data/geography-first-cz_city-filtered.pd", train=0.3)
+data_all = Data("data/geography-first-all-filtered-2.pd", train=0.3)
+data_states = Data("data/geography-first-states-filtered-2.pd", train=0.3)
+data_states_old = Data("data/geography-first-states-filtered.pd", train=0.3)
+data_europe = Data("data/geography-first-europe-filtered-2.pd", train=0.3)
+data_europe_old = Data("data/geography-first-europe-filtered.pd", train=0.3)
+data_cz_cities = Data("data/geography-first-cz_city-filtered-2.pd", train=0.3)
+data_cz_cities_old = Data("data/geography-first-cz_city-filtered.pd", train=0.3)
 maps_continents_country = get_continents_country_maps("data/")
 
 # Runner(Data("data/geography-first-all.pd", test=False), EloModel()).run()
@@ -27,7 +31,7 @@ maps_continents_country = get_continents_country_maps("data/")
 # run_all_models(data, run=True)
 
 # experiment = Evaluator(data_states, EloClusterModel(clusters=maps_continents_country))
-# experiment = Evaluator(data_cz_cities, EloModel(alpha=0.6, beta=0.08))
+# experiment = Evaluator(data_cz_cities, EloModel(alpha=0.2, beta=0.08))
 # experiment = Evaluator(data_cz_cities, EloCorrModel(alpha=1, beta=0.08, corr_place_weight=0.4, prior_weight=0.6))
 
 # experiment.evaluate()
@@ -50,6 +54,31 @@ compare_models(data_states, [
     EloTimeModel(),
 ], dont=True)
 
+
+compare_models(data_all, [
+    AvgModel(),
+    AvgItemModel(),
+    EloTimeModel(),
+    EloModel(alpha=1.2),
+    EloClusterModel(clusters=get_maps("data/")),
+    EloClusterModel(clusters=get_maps("data/", just_types=True)),
+    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
+    EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
+    EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
+], dont=True, resolution=False)
+
+tmp_maps = get_maps("data/", just_types=True)
+group_rmse(data_all, [
+    # AvgModel(),
+    # AvgItemModel(),
+    # EloTimeModel(),
+    EloModel(alpha=1.2),
+    # EloClusterModel(clusters=tmp_maps),
+    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
+    EloTreeModel(clusters=tmp_maps, local_update_boost=0.5),
+    ], tmp_maps, dont=True)
+
+
 compare_models(data_states, [
     AvgModel(),
     AvgItemModel(),
@@ -60,7 +89,7 @@ compare_models(data_states, [
     # EloClusterModel(clusters=maps_continents_country, separate=True),
     EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
     # EloTreeModel(clusters=maps_continents_country, local_update_boost=1),
-], dont=True)
+], dont=True, resolution=False)
 
 compare_models(data_europe, [
     AvgModel(),
@@ -82,8 +111,8 @@ group_rmse(data_europe, [
     EloTreeModel(clusters=europe_clusters, local_update_boost=0.2),
     ], europe_clusters, dont=True)
 
-
-group_rmse(data_states, [
+options_rmse(data_states, [
+# group_rmse(data_states, [
     AvgModel(),
     AvgItemModel(),
     EloTimeModel(),
@@ -91,25 +120,68 @@ group_rmse(data_states, [
     EloClusterModel(clusters=maps_continents_country),
     EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
-], maps_continents_country, dont=True)
+], maps_continents_country, dont=False)
 
 # elo_grid_search(data_states, run=False)
+# elo_grid_search(data_states_old, run=False)
 # elo_grid_search(data_europe, run=False)
+# elo_grid_search(data_europe_old, run=False)
 # elo_grid_search(data_cz_cities, run=False)
+# elo_grid_search(data_cz_cities_old, run=False)
 # elo_corr_grid_search(data_states, run=False)
+# elo_corr_grid_search(data_states_old, run=False)
 # elo_corr_grid_search(data_europe, run=False)
+# elo_corr_grid_search(data_europe_old, run=False)
 # elo_corr_grid_search(data_cz_cities, run=False)
+# elo_corr_grid_search(data_cz_cities_old, run=False)
+
+# elo_grid_search_gamma(data_states, run=False)
 
 # corr_stats(data_europe, min_periods=1, test_dataset=True)
 
 group_calibration(data_states, [
-    AvgItemModel(),
+    # AvgItemModel(),
     EloModel(alpha=1.2),
     EloClusterModel(clusters=maps_continents_country),
     EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
-], maps_continents_country)
+], maps_continents_country, dont=True)
 
+
+compare_models(data_states, [
+    AvgModel(),
+    AvgItemModel(),
+    EloTimeModel(),
+    EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
+    EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4, version="global_and_cluster_at_once"),
+    ], dont=True, resolution=False)
+
+
+def skill_correlations():
+    model = EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4)
+    Runner(data_states, model).run()
+    global_skills = pd.Series(model.global_skill, index=model.global_skill.keys())
+
+    skills = pd.DataFrame(data=global_skills, columns=["global"])
+    for map in maps_continents_country.keys():
+        local_skills = pd.Series(model.maps_skills[map], index=model.maps_skills[map].keys())
+        skills[map] = local_skills
+
+    skills = skills[(~skills.isnull()).sum(axis=1) > 6]
+
+    for map in maps_continents_country.keys():
+        if (~skills[map].isnull()).sum() == 0:
+            continue
+
+        plt.figure()
+        tmp = skills[~skills[map].isnull()]
+        plt.title(skills.corr().ix["global", map])
+        plt.plot(tmp["global"], tmp[map], ".")
+        plt.ylabel(map)
+        plt.xlabel("global")
+        plt.savefig("results/tree-elo skill-corr {} filtered-6.png".format(map))
+
+# skill_correlations()
 
 plt.show()
 
