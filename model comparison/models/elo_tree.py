@@ -13,10 +13,10 @@ class EloTreeModel(Model):
         self.local_update_boost = local_update_boost
 
         self.global_skill = {}
-        self.maps_skills = {}
+        self.maps_skills = {'other': {}}
         self.difficulty = {}
         self.student_attempts = {}
-        self.map_student_attempts = {}
+        self.map_student_attempts = {'other': {}}
         self.place_attempts = {}
         self.clusters = clusters
         self.version = version
@@ -40,7 +40,8 @@ class EloTreeModel(Model):
             self.global_skill[student] = 0
             self.student_attempts[student] = 0
 
-        map = self.maps_map[item]
+        map = self.maps_map[item] if item in self.maps_map else "other"
+
         if not student in self.maps_skills[map]:
             self.maps_skills[map][student] = 0
             self.map_student_attempts[map][student] = 0
@@ -50,7 +51,7 @@ class EloTreeModel(Model):
 
     def process(self, student, item, correct, extra=None):
         self.initialize_if_needed(student, item)
-        map = self.maps_map[item]
+        map = self.maps_map[item] if item in self.maps_map else "other"
         random_factor = 0 if extra is None or extra["choices"] == 0 else 1. / extra["choices"]
 
         prediction = None

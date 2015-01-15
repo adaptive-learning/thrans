@@ -4,7 +4,7 @@ from hashlib import sha1
 
 class EloCorrModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0, place_decay=False):
+    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0, place_decay=False, min_corr=None):
         Model.__init__(self)
 
         self.corr = None
@@ -15,6 +15,7 @@ class EloCorrModel(Model):
         self.decay_function = decay_function if decay_function is not None else lambda x: alpha / (1 + beta * x)
         self.corr_place_weight = corr_place_weight
         self.prior_weight = prior_weight
+        self.min_corr = min_corr
 
         self.global_skill = {}
         self.difficulty = {}
@@ -23,30 +24,32 @@ class EloCorrModel(Model):
         self.local_skill = {}
 
     def __str__(self):
-        return "Elo with correlations{}; decay - alpha: {}, beta: {}, prior_weight {}, corr_place_weight {}"\
-            .format(" plDe" if self.place_decay else "", self.alpha, self.beta, self.prior_weight, self.corr_place_weight)
+        return "Elo with correlations{}; decay - alpha: {}, beta: {}, prior_weight {}, corr_place_weight {}{}"\
+            .format(" plDe" if self.place_decay else "", self.alpha, self.beta, self.prior_weight, self.corr_place_weight, "" if self.min_corr is None else " min_corr: " + str(self.min_corr))
 
     def pre_process_data(self, data):
+        filename = "data/{}{}.corr.pd".format(sha1(str(data)).hexdigest()[:10], "" if self.min_corr is None else " min_corr: " + str(self.min_corr))
         try:
-            self.corr = pd.load("data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10]))
+            self.corr = pd.read_pickle(filename)
             return
         except:
             pass
 
-        train_data = data.get_train_dataframe()
+        train_data = data.get_dataframe() if data.only_train else data.get_train_dataframe()
 
         print "Computing response matrix"
         responses = pd.DataFrame(index=train_data["student"].unique(), columns=train_data["item"].unique())
-        for answer in data.train_iter():
+        answers = data if data.only_train else data.train_iter()
+        for answer in answers:
             guess = 1. / answer["choices"] if answer["choices"] else 0
             responses.ix[answer["student"], answer["item"]] = answer["correct"] * 1 - guess
 
         print "Computing correlations"
         responses = responses.astype(float)
-        self.corr = responses.corr(method="spearman")
+        self.corr = responses.corr(method="spearman", min_periods=self.min_corr)
         self.corr.fillna(0, inplace=True)
         print "NaNs in correlation matrix", (self.corr==0).sum()
-        self.corr.save("data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10]))
+        self.corr.to_pickle(filename)
 
 
 
@@ -62,6 +65,9 @@ class EloCorrModel(Model):
     def process(self, student, item, correct, extra=None):
         self.initialize_if_needed(student, item)
         random_factor = 0 if extra is None or extra["choices"] == 0 else 1. / extra["choices"]
+        if item not in self.local_skill[student]:
+            print "unknown place", item
+            return 0.7
         skill = self.corr_place_weight * self.local_skill[student][item] + self.prior_weight * self.global_skill[student]
 
         prediction = sigmoid(skill - self.difficulty[item], random_factor)

@@ -17,6 +17,11 @@ class Model:
         pass
 
     def process_data(self, data):
+        print "train",
+        for answer in data.train_iter():
+            self.process(answer["student"], answer["item"], answer["correct"], answer)
+
+        print "test",
         for answer in data:
             prediction = self.process(answer["student"], answer["item"], answer["correct"], answer)
             if self.logger is not None:
@@ -38,7 +43,7 @@ class AvgModel(Model):
         return "Global average"
 
     def pre_process_data(self, data):
-        for answer in data:
+        for answer in data.train_iter():
             self.all += 1
             if answer["correct"]:
                 self.corrects += 1

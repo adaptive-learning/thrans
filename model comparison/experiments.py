@@ -8,8 +8,9 @@ from models.elo_tree import *
 from models.elo_clust import *
 from models.elo_time import *
 import pylab as plt
+import scipy.stats as sc
 
-data_all = Data("data/geography-first-all-filtered-2.pd", train=0.3)
+data_all = Data("data/geography-first-all-2.pd", train=0.3)
 data_states = Data("data/geography-first-states-filtered-2.pd", train=0.3)
 data_states_old = Data("data/geography-first-states-filtered.pd", train=0.3)
 data_europe = Data("data/geography-first-europe-filtered-2.pd", train=0.3)
@@ -46,14 +47,6 @@ maps_continents_country = get_continents_country_maps("data/")
 
 # compare_models(data_europe, [AvgModel(), AvgItemModel(), EloModel(), EloCorrModel(), EloCorrModel(corr_place_weight=1.8)])
 # compare_models(data_states, [AvgModel(), AvgItemModel(), EloModel(), EloCorrModel(corr_place_weight=0.6, prior_weight=0.6), EloClusterModel(clusters=maps_continents_country)])
-compare_models(data_states, [
-    AvgModel(),
-    AvgItemModel(),
-    EloModel(),
-    EloModel(alpha=1.2),
-    EloTimeModel(),
-], dont=True)
-
 
 compare_models(data_all, [
     AvgModel(),
@@ -65,7 +58,7 @@ compare_models(data_all, [
     EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
     EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
-], dont=True, resolution=False)
+], dont=True, resolution=True)
 
 tmp_maps = get_maps("data/", just_types=True)
 group_rmse(data_all, [
@@ -78,27 +71,28 @@ group_rmse(data_all, [
     EloTreeModel(clusters=tmp_maps, local_update_boost=0.5),
     ], tmp_maps, dont=True)
 
-
 compare_models(data_states, [
     AvgModel(),
     AvgItemModel(),
-    EloTimeModel(),
+    # EloTimeModel(),
     EloModel(alpha=1.2),
-    EloClusterModel(clusters=maps_continents_country),
-    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
+    # EloClusterModel(clusters=maps_continents_country),
+    # EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     # EloClusterModel(clusters=maps_continents_country, separate=True),
     EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
+
     # EloTreeModel(clusters=maps_continents_country, local_update_boost=1),
 ], dont=True, resolution=False)
 
 compare_models(data_europe, [
     AvgModel(),
     AvgItemModel(),
-    EloTimeModel(),
+    # EloTimeModel(),
     EloModel(alpha=1.2, beta=.12),
-    EloClusterModel(clusters=europe_clusters),
+    # EloClusterModel(clusters=europe_clusters),
     EloCorrModel(corr_place_weight=1., prior_weight=0.6),
     EloTreeModel(clusters=europe_clusters, local_update_boost=0.2),
+    # EloTreeModel(clusters=ac, local_update_boost=0.4),
 ], dont=True)
 
 group_rmse(data_europe, [
@@ -111,16 +105,33 @@ group_rmse(data_europe, [
     EloTreeModel(clusters=europe_clusters, local_update_boost=0.2),
     ], europe_clusters, dont=True)
 
-options_rmse(data_states, [
-# group_rmse(data_states, [
+
+compare_models(data_states, [
     AvgModel(),
     AvgItemModel(),
-    EloTimeModel(),
+    EloModel(),
     EloModel(alpha=1.2),
-    EloClusterModel(clusters=maps_continents_country),
+    EloModel(alpha=1.2, random_factor="**"),
+    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
+    EloCorrModel(corr_place_weight=0.8, prior_weight=0.8, min_corr=200),
+    # EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
+    # EloTimeModel(),
+], dont=True)
+
+options_calibration(data_states, [
+# options_rmse(data_states, [
+# group_calibration(data_states, [
+# group_rmse(data_states, [
+#     AvgModel(),
+#     AvgItemModel(),
+#     EloTimeModel(),
+    EloModel(alpha=1.2),
+    EloModel(alpha=1.2, random_factor="**"),
+# EloClusterModel(clusters=maps_continents_country),
     EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4),
-], maps_continents_country, dont=False)
+], maps_continents_country, dont=True)
+
 
 # elo_grid_search(data_states, run=False)
 # elo_grid_search(data_states_old, run=False)
@@ -185,8 +196,15 @@ def skill_correlations():
 
 plt.show()
 
-# TODO sepsat to - related work; vzorezcky
-# TODO correlace - jake jsou;
-# TODO Elo corr - jak to delat jinak
-# TODO hiearchucal skills - jak to delaji jinde, jak to delat jinak
-# TODO alpha, beta, pocitat z train_setu
+if False:
+
+    data_states1 = Data("data/geography-first-all-filtered-2.pd", train=0.3, force_train=1)
+    data_states2 = Data("data/geography-first-all-filtered-2.pd", train=0.3, force_train=2)
+
+    corr1, _, _ = compute_correlations(data_states1, min_periods=200)
+    corr2, _, _ = compute_correlations(data_states2, min_periods=200)
+
+    plt.title(sc.spearmanr(corr1.unstack(), corr2.unstack()))
+    plt.plot(corr1.unstack(), corr2.unstack(), "o")
+
+    plt.show()

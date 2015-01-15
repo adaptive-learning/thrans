@@ -26,6 +26,10 @@ class Evaluator:
 
         print self.hash
 
+    def delete(self):
+        os.remove("logs/{}.pd".format(self.hash))
+        os.remove("logs/{}.report".format(self.hash))
+
     def evaluate(self, brier_bins=20):
         report = self.get_report()
 
@@ -66,7 +70,7 @@ class Evaluator:
             "resolution":  sum(brier_counts * (brier_correct_means - answer_mean) ** 2) / n,
             "uncertainty": answer_mean * (1 - answer_mean),
 
-        }
+            }
         report["brier"] = brier
 
         report["zextra"]["brier"] = {
@@ -74,7 +78,7 @@ class Evaluator:
             "bin_counts": list(brier_counts),
             "bin_prediction_means": list(brier_prediction_means),
             "bin_correct_means": list(brier_correct_means),
-        }
+            }
 
         with open("logs/{}.report".format(self.hash), "w") as f:
             json.dump(report, f)
@@ -105,7 +109,6 @@ class Evaluator:
         bins = (np.arange(bin_count) + 0.5) / bin_count
         plt.bar(bins, counts / max(counts), width=(0.5 / bin_count), alpha=0.5)
         plt.title(self.model)
-
         if show:
             plt.show()
 
@@ -136,23 +139,27 @@ def compare_models(data, models, dont=False, resolution=True):
 
 
 def compare_brier_curve(data, model1, model2):
+    # Evaluator(data, model2).evaluate()
     report1 = Evaluator(data, model1).get_report()
     report2 = Evaluator(data, model2).get_report()
 
-    plt.figure()
-    plt.plot(report1["zextra"]["brier"]["bin_prediction_means"], report1["zextra"]["brier"]["bin_correct_means"], "g", label="M1")
-    plt.plot(report2["zextra"]["brier"]["bin_prediction_means"], report2["zextra"]["brier"]["bin_correct_means"], "b", label="M2")
-    plt.plot((0, 1), (0, 1), "r")
+    fig, ax1 = plt.subplots()
+    ax1.plot([]+report1["zextra"]["brier"]["bin_prediction_means"], []+report1["zextra"]["brier"]["bin_correct_means"], "g", label="M1")
+    ax1.plot([]+report2["zextra"]["brier"]["bin_prediction_means"], []+report2["zextra"]["brier"]["bin_correct_means"], "r", label="M2")
+    ax1.plot((0, 1), (0, 1), "k--")
+
+    ax2 = ax1.twinx()
 
     bin_count = report1["zextra"]["brier"]["bin_count"]
     counts1 = np.array(report1["zextra"]["brier"]["bin_counts"])
     counts2 = np.array(report2["zextra"]["brier"]["bin_counts"])
     bins = (np.arange(bin_count) + 0.5) / bin_count
-    plt.bar(bins, counts1 / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.2, color="g")
-    plt.bar(bins, counts2 / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.2, color="b")
-    plt.bar(bins, (counts1 - counts2) / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.8, color="r")
+    ax2.bar(bins, counts1, width=(0.45 / bin_count), alpha=0.2, color="g")
+    ax2.bar(bins-0.023, counts2, width=(0.45 / bin_count), alpha=0.2, color="r")
+    # plt.bar(bins, (counts1 - counts2) / max(max(counts2),max(counts1)), width=(0.5 / bin_count), alpha=0.8, color="r")
 
-    plt.title("{}\n{}".format(model1, model2))
+    # plt.title("{}\n{}".format(model1, model2))
+    plt.xticks(list(bins-0.025) + [1.])
 
     plt.legend(loc=2)
 
@@ -195,10 +202,11 @@ def group_calibration(data, models, groups, dont=False):
         real = real[real.notnull()]
         predicted = predicted[predicted.notnull()]
 
-        plt.bar(np.arange(len(predicted))+((i+1)*0.8)/(len(models)+1), predicted.values, color=colors[i+1], width=0.8/(len(models) + 1), label=str(model)[:50])
+        plt.bar(np.arange(len(predicted))+((i+1)*0.8)/(len(models)+1), (real - predicted).values, color=colors[i+1], width=0.8/(len(models) + 1), label=str(model)[:50])
+        plt.title("observed - predicted")
 
     plt.xticks(np.arange(len(predicted))+0.5, predicted.index, rotation=-90)
-    plt.bar(np.arange(len(real)), real.values, color=colors[0], width=0.8/(len(models) + 1), label="observed", hatch="///")
+    # plt.bar(np.arange(len(real)), real.values, color=colors[0], width=0.8/(len(models) + 1), label="observed", hatch="///")
 
     plt.legend(loc=4)
 
@@ -272,6 +280,9 @@ def options_rmse(data, models, nothing=None, dont=False):
             s[str(g)] = v
 
         s = s[s.notnull()]
+        s["open"] = s["0"]
+        s = s.sort_index()
+        del s["0"]
 
         plt.bar(np.arange(len(s))+i*0.8/len(models), s.values, color=colors[i], width=0.8/len(models), label=str(model)[:50])
         plt.xticks(np.arange(len(s))+0.5, s.index, rotation=-90)
@@ -279,10 +290,61 @@ def options_rmse(data, models, nothing=None, dont=False):
     plt.legend(loc=4)
 
 
+def options_calibration(data, models, nothing=None, dont=False):
+    if dont:
+        return
+    plt.figure()
+    plt.ylabel("RMSE")
+    colors = ["blue", "red", "green", "black", "cyan", "yellow", "purple"]
+
+    for i, model in enumerate(models):
+        report = Evaluator(data, model).get_report()
+        option_field_name = "options-count-calibration"
+        if option_field_name+"pred" not in report:
+
+            max_choices = data.get_dataframe()["choices"].max()
+
+            n = pd.Series(index=range(max_choices+1)).fillna(0)           # log count
+            prediction = pd.Series(index=range(max_choices+1)).fillna(0)
+            observed = pd.Series(index=range(max_choices+1)).fillna(0)
+
+            data.join_predictions(pd.load("logs/{}.pd".format(utils.hash(model, data))))
+
+            for log in data:
+                group = log["choices"]
+                n[group] += 1
+                prediction[group] += log["prediction"]
+                observed[group] += log["correct"]
+
+            report[option_field_name+"pred"] = (prediction/ n).apply(math.sqrt).to_dict()
+            report[option_field_name+"observ"] = (observed/ n).apply(math.sqrt).to_dict()
+            Evaluator(data, model).save_report(report)
+
+        s = pd.Series()
+        t = pd.Series()
+        for g, v in report[option_field_name+"pred"].items():
+            s[str(g)] = v
+
+        for g, v in report[option_field_name+"observ"].items():
+            t[str(g)] = v
+
+        s = s - t
+
+        s = s[s.notnull()]
+        s["99"] = s["0"]
+        s = s.sort_index()
+        del s["0"]
+
+        plt.bar(np.arange(len(s))+i*0.8/len(models), s.values, color=colors[i], width=0.8/len(models), label=str(model)[:50])
+        plt.xticks(np.arange(len(s))+0.5, s.index, rotation=-90)
+
+    plt.legend(loc=4)
 
 def corr_stats(data, min_periods=100, test_dataset=True):
     # corr = pd.read_pickle("data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10]))
     corr, hits, nans = compute_correlations(data, guess_decay=True, min_periods=min_periods, test=test_dataset, hits=True)
+    corr.to_pickle("tmp.corr")
+    hits.to_pickle("tmp.hits")
 
     map = get_id_place_map("data/")
     corr.unstack().hist(bins=30)

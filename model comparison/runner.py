@@ -2,8 +2,9 @@ import datetime
 import json
 import os
 import numpy as np
-from data.data import Data
+from data.data import *
 from models.elo import EloModel
+from models.elo_tree import *
 from data import utils
 from models.model import AvgModel, AvgItemModel
 from evaluator import Evaluator
@@ -56,7 +57,7 @@ class Runner():
         with open("logs/{}.report".format(self.hash), "w") as f:
             json.dump(report, f)
 
-        self.log.save("logs/{}.pd".format(self.hash))
+        self.log.to_pickle("logs/{}.pd".format(self.hash))
 
         print "Written to {} report and log".format(self.hash)
 
@@ -80,6 +81,7 @@ def elo_grid_search(data, run=True):
         for beta in betas:
 
             model = EloModel(alpha=alpha, beta=beta)
+            # model = EloTreeModel(alpha=alpha, beta=beta, clusters=utils.get_maps("data/"), local_update_boost=0.5)
             if run:
                 Runner(data, model).run()
                 report = Evaluator(data, model).evaluate()
@@ -115,16 +117,16 @@ def elo_grid_search_gamma(data, run=True):
 
 
 
-def elo_corr_grid_search(data, run=True):
+def elo_corr_grid_search(data, run=False):
 
-    prior_weights = np.arange(0, 2, 0.2)
-    corr_place_weights = np.arange(0, 2, 0.2)
+    prior_weights = np.arange(0.6, 1.2, 0.1)
+    corr_place_weights = np.arange(0.8, 1.4, 0.1)
 
     results = pd.DataFrame(columns=prior_weights, index=corr_place_weights, dtype=float)
     for prior in prior_weights:
         for corr_place in corr_place_weights:
 
-            model = EloCorrModel(prior_weight=prior, corr_place_weight=corr_place)
+            model = EloCorrModel(prior_weight=prior, corr_place_weight=corr_place, min_corr=200)
             if run:
                 Runner(data, model).run()
                 report = Evaluator(data, model).evaluate()

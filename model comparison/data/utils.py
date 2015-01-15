@@ -14,18 +14,19 @@ def compute_correlations(data, method="spearman", guess_decay=True, test=True,  
     else:
         df = data.get_dataframe_all()
 
+    filename = "data/{}.respo.pd".format(sha1(str(data) + str(test) + str(guess_decay) + "v2").hexdigest()[:10])
     try:
-        responses = pd.read_pickle("data/{}.respo.pd".format(sha1(str(data)+str(test)+str(guess_decay)+"v2").hexdigest()[:10]))
+        responses = pd.read_pickle(filename)
         print "Loaded response matrix"
     except:
         print "Computing response matrix"
-        responses = pd.DataFrame(index=df["student"].unique(), columns=df["item"].unique())
+        responses = pd.DataFrame(index=df["student"].unique(), columns=sorted(df["item"].unique()))
         for answer in data.all_iter() if not test else data.train_iter():
             guess = 0
             if guess_decay and answer["choices"]:
                 guess = 1. / answer["choices"]
             responses.ix[answer["student"], answer["item"]] = answer["correct"] * 1 - guess
-        responses.to_pickle("data/{}.respo.pd".format(sha1(str(data)+str(test)+str(guess_decay)).hexdigest()[:10]))
+        responses.to_pickle(filename)
 
     if hits:
         hits = pd.DataFrame(columns=responses.columns, index=responses.columns)
