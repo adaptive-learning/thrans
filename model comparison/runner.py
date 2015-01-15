@@ -71,7 +71,7 @@ def run_all_models(data, run=True):
         Evaluator(data, model).evaluate()
 
 
-def elo_grid_search(data, run=True):
+def elo_grid_search(data, run=False):
     alphas = np.arange(0.4, 2, 0.2)
     betas = np.arange(0.02, 0.2, 0.02)
 
@@ -90,7 +90,10 @@ def elo_grid_search(data, run=True):
             # results[alpha][beta] = report["brier"]["reliability"]
             results[alpha][beta] = report["rmse"]
     plt.title(data)
-    plt.pcolor(results)
+
+    cmap = plt.cm.get_cmap("gray")
+    cmap.set_gamma(0.5)
+    plt.pcolor(results, cmap=cmap)
     plt.yticks(np.arange(0.5, len(results.index), 1), results.index)
     plt.ylabel("betas")
     plt.xticks(np.arange(0.5, len(results.columns), 1), results.columns)
@@ -98,7 +101,7 @@ def elo_grid_search(data, run=True):
     plt.colorbar()
 
 
-def elo_grid_search_gamma(data, run=True):
+def elo_grid_search_gamma(data, run=False):
     alpha = 1
     beta = 0
     gammas = np.arange(0, 1, 0.1)
@@ -136,7 +139,9 @@ def elo_corr_grid_search(data, run=False):
 
     plt.figure()
     plt.title(data)
-    plt.pcolor(results)
+    cmap = plt.cm.get_cmap("gray")
+    cmap.set_gamma(0.5)
+    plt.pcolor(results, cmap=cmap)
     plt.yticks(np.arange(0.5, len(results.index), 1), results.index)
     plt.ylabel("corr_place_weights")
     plt.xticks(np.arange(0.5, len(results.columns), 1), results.columns)
