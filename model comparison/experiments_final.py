@@ -15,7 +15,7 @@ data_train = Data("data/geography-first-all-2.pd", train=0.3, only_train=True)
 data_train2 = Data("data/geography-first-all-2-train.pd", train=0.5, force_train=True)
 
 
-compare_brier_curve(data_all, EloModel(beta=0.06), EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),)
+# compare_brier_curve(data_all, EloModel(beta=0.06), EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),)
 # print len(data_all.get_items()), len(data_all.get_students()), len(data_all.get_dataframe_all())
 
 compare_models(data_all, [
@@ -28,12 +28,13 @@ compare_models(data_all, [
     # EloCorrModel(corr_place_weight=0.4, prior_weight=1, min_corr=200),
     EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
     EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
+    # EloTreeModel(clusters=get_maps("data/", old=True), local_update_boost=0.5),
     # EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
     # EloTreeModel(clusters=get_continents_country_maps(folder="data/"), local_update_boost=0.5),
-    ], dont=True, resolution=True)
+    ], dont=0, auc=True, resolution=True, evaluate=0)
 
 # elo_grid_search(data_train)
-# elo_corr_grid_search(data_train)
+# elo_corr_grid_search(data_train2)
 
 if False:
     clusters = get_maps("data/")

@@ -3,7 +3,7 @@ from model import Model, sigmoid
 
 class EloTreeModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.1, clusters=None, decay_function=None, local_update_boost=1, version="global_then_cluster"):
+    def __init__(self, alpha=1.0, beta=0.1, clusters=None, decay_function=None, local_update_boost=0.5, version="global_then_cluster"):
         if not clusters: clusters = {}
         Model.__init__(self)
 
@@ -30,9 +30,9 @@ class EloTreeModel(Model):
 
     def __str__(self):
         if self.version == "double-update":
-            return "Elo tree v2; decay - alpha: {}, beta: {}, local_update_boost: {}, clusters: {}".format(self.alpha, self.beta, self.local_update_boost, ";".join(self.clusters.keys()))
+            return "Elo tree v2; decay - alpha: {}, beta: {}, local_update_boost: {}, clusters: {}".format(self.alpha, self.beta, self.local_update_boost, ";".join(sorted(self.clusters.keys())))
         else:
-            return "Elo tree {}; decay - alpha: {}, beta: {}, local_update_boost: {}, clusters: {}".format(self.version, self.alpha, self.beta, self.local_update_boost, ";".join(self.clusters.keys()))
+            return "Elo tree {}; decay - alpha: {}, beta: {}, local_update_boost: {}, clusters: {}".format(self.version, self.alpha, self.beta, self.local_update_boost, ";".join(sorted(self.clusters.keys())))
 
 
     def initialize_if_needed(self, student, item):

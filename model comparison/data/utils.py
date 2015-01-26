@@ -158,7 +158,7 @@ def filter_small_data(input="geography-first-all.pd-2", output=None, min_student
 
 
 
-def find_maps(just_types=False):
+def find_maps(just_types=False, just_maps=False):
     types = {
         1: "country",
         2: "city",
@@ -181,21 +181,29 @@ def find_maps(just_types=False):
     places_all = places.from_csv("raw data/geography.place.csv", "raw data/geography.placerelation.csv","raw data/geography.placerelation_related_places.csv")
     places_all.set_index(places_all["id"], inplace=True)
     for _, place in places_all.iterrows():
+        concepts = []
         for id, relation in place.relations:
-            if relation == "is_on_map":
-                if just_types:
-                    key = types[place.type]
-                else:
-                    key = places_all.ix[id]["name"]+"-"+types[place.type]
-                maps[key].append(place.id)
+            if (relation == "is_on_map" or relation == "too_small_on_map"):
+                concepts.append(id)
+        if len(concepts) > 1 and 225 in concepts: concepts.remove(225)    # remove world
+        concept = places_all.ix[min(concepts)]["name_en"] if len(concepts) >  0 else "other"
 
-    filename = "types.json" if just_types else "maps.json"
+        if just_types:
+            key = types[place.type]
+        elif just_maps:
+            key = concept
+        else:
+            key = concept+"-"+types[place.type]
+        maps[key].append(place.id)
+
+    filename = "types.json" if just_types else "maps2.json" if just_maps else "maps.json"
     with open(filename, "w") as f:
         json.dump(maps, f)
 
 
-def get_maps(folder="", filter=None, just_types=False):
-    filename = "types.json" if just_types else "maps.json"
+def get_maps(folder="", filter=None, just_types=False, just_maps=False, old=False):
+    filename = "types.json" if just_types else "maps2.json" if just_maps else "maps.json"
+    if old: filename = filename[:-5] + "_old.json"
     with open(folder+filename) as f:
         maps = json.load(f)
 
@@ -217,7 +225,7 @@ def get_id_place_map(dir=""):
 
 
 def get_continents_country_maps(folder=""):
-    return get_maps(folder, ["United States-country", "Australia-country", u"Jizni Amerika-country", "Africa-country", "Asia-country", u"Severni Amerika-country", "Europe-country"])
+    return get_maps(folder, ["United States-country", "Australia-country", u"South America-country", "Africa-country", "Asia-country", u"North America-country", "Europe-country"])
 
 
 def get_train_students():
@@ -256,4 +264,6 @@ europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'e
 
 # get_train_students()
 
+# find_maps()
 # find_maps(just_types=True)
+# find_maps(just_maps=True)

@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import pylab as plt
 import scipy
+from sklearn import metrics
 from data.data import Data
 from data.utils import *
 from models.elo import EloModel
@@ -58,6 +59,7 @@ class Evaluator:
         report["zextra"] = {"anser_mean": answer_mean}
         report["rmse"] = math.sqrt(sse / n)
         report["log-likely-hood"] = llsum
+        report["AUC"] = metrics.roc_auc_score(self.data.get_dataframe()["correct"], self.data.get_dataframe()   ["prediction"])
 
         # brier
         brier_prediction_means = brier_prediction / brier_counts
@@ -113,24 +115,32 @@ class Evaluator:
             plt.show()
 
 
-def compare_models(data, models, dont=False, resolution=True):
+def compare_models(data, models, dont=False, resolution=True, auc=False, evaluate=False):
     if dont:
         return
     plt.xlabel("RMSE")
-    if resolution:
+    if auc:
+        plt.ylabel("AUC")
+    elif resolution:
         plt.ylabel("Resolution")
     else:
         plt.ylabel("Brier score")
     for model in models:
+        if evaluate:
+            Evaluator(data, model).evaluate()
         report = Evaluator(data, model).get_report()
         print model
         print "RMSE: {:.5}".format(report["rmse"])
+        print "LL: {:.6}".format(report["log-likely-hood"])
+        print "AUC: {:.4}".format(report["AUC"])
         print "Brier resolution: {:.4}".format(report["brier"]["resolution"])
         print "Brier reliability: {:.3}".format(report["brier"]["reliability"])
         print "=" * 50
 
         x = report["rmse"]
-        if resolution:
+        if auc:
+            y = report["AUC"]
+        elif resolution:
             y = report["brier"]["resolution"]
         else:
             y = report["brier"]["reliability"] - report["brier"]["resolution"] + report["brier"]["uncertainty"]
@@ -229,9 +239,12 @@ def group_rmse(data, models, groups, dont=False):
             data.join_predictions(pd.load("logs/{}.pd".format(utils.hash(model, data))))
 
             for log in data:
-                group = group_map[log["item"]]
-                n[group] += 1
-                sse[group] += (log["prediction"] - log["correct"]) ** 2
+                try:
+                    group = group_map[log["item"]]
+                    n[group] += 1
+                    sse[group] += (log["prediction"] - log["correct"]) ** 2
+                except:
+                    print "skipping", log["item"]
 
             report[groups_hash] = (sse / n).apply(math.sqrt).to_dict()
             Evaluator(data, model).save_report(report)
