@@ -31,7 +31,7 @@ compare_models(data_all, [
     # EloTreeModel(clusters=get_maps("data/", old=True), local_update_boost=0.5),
     # EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
     # EloTreeModel(clusters=get_continents_country_maps(folder="data/"), local_update_boost=0.5),
-    ], dont=0, auc=True, resolution=True, evaluate=0)
+    ], dont=1, auc=False, resolution=True, evaluate=0)
 
 # elo_grid_search(data_train)
 # elo_corr_grid_search(data_train2)

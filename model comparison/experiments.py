@@ -169,7 +169,7 @@ compare_models(data_states, [
 
 
 def skill_correlations():
-    model = EloTreeModel(clusters=maps_continents_country, local_update_boost=0.4)
+    model = EloTreeModel(clusters=maps_continents_country, local_update_boost=0.5)
     Runner(data_states, model).run()
     global_skills = pd.Series(model.global_skill, index=model.global_skill.keys())
 
