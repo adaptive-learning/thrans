@@ -28,16 +28,15 @@ europe_concepts2 = json.load(open("data/europe_concepts2.json"))
 
 # correct_cluster(data_states, maps_continents_country, run=True, print_diffs=True)
 # correct_cluster(data_all, get_maps("data/"), run=True, print_diffs=True)
-correct_cluster(data_europe, europe_concepts, run=True, print_diffs=True)
-correct_cluster(data_europe, europe_concepts2, run=True, print_diffs=True)
+# correct_cluster(data_europe, europe_concepts, run=True, print_diffs=True)
+# correct_cluster(data_europe, europe_concepts2, run=True, print_diffs=True)
 
 
-# cluster_optim(data_europe, [europe_concepts, europe_concepts2],  range(2, 6, 1))
+# cluster_optim(data_europe, [europe_concepts, europe_concepts2],  range(2, 6, 1), local_update_boost=0.25)
 # cluster_optim(data_states, [maps_continents_country],  range(2, 30, 1))
 # cluster_optim(data_all, [get_maps("data/"), get_maps("data/", just_types=True), get_maps("data/", just_maps=True)], range(2, 100, 2))
 
 # compare_brier_curve(data_europe, EloModel(beta=0.06), EloTreeModel(clusters=compute_clusters(data_europe, 3), local_update_boost=0.25),)
-
 tmp_maps = get_maps("data/")
 group_calibration(data_all, [
 # group_rmse(data_all, [
@@ -49,25 +48,34 @@ compare_models(data_europe, [
     # AvgModel(),
     # AvgItemModel(),
     EloModel(beta=0.06),
-    EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
+    # EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
     EloTreeModel(clusters=europe_concepts, local_update_boost=0.25),
+    EloTreeModel(clusters=correct_cluster(data_europe, europe_concepts), local_update_boost=0.25),
     EloTreeModel(clusters=europe_concepts2, local_update_boost=0.25),
+    EloTreeModel(clusters=correct_cluster(data_europe, europe_concepts2), local_update_boost=0.25),
     EloTreeModel(clusters=compute_clusters(data_europe, 2), local_update_boost=0.25),
     EloTreeModel(clusters=compute_clusters(data_europe, 3), local_update_boost=0.25),
-    EloTreeModel(clusters=compute_clusters(data_europe, 4), local_update_boost=0.25),
-    ], dont=1, resolution=True)
+    EloTreeModel(clusters=compute_clusters(data_europe, 5), local_update_boost=0.25),
+    ], dont=1, resolution=True, evaluate=False, diff_to=0.37158)
 
-compare_models(data_all, [
-    AvgModel(),
+compare_models(data_europe, [
+    # AvgModel(),
     # AvgItemModel(),
     EloModel(beta=0.06),
-    EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
+    # EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
     EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
-    EloTreeModel(clusters=one_concept, local_update_boost=0.5),
-    EloTreeModel(clusters=random_concepts(one_concept["all"], 2), local_update_boost=0.5),
-    EloTreeModel(clusters=random_concepts(one_concept["all"], 4), local_update_boost=0.5),
-    EloTreeModel(clusters=compute_clusters(data_all, 10), local_update_boost=0.5),
-], dont=1, resolution=True)
+    EloTreeModel(clusters=get_maps("data/", just_maps=True), local_update_boost=0.5),
+    EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
+    EloTreeModel(clusters=correct_cluster(data_all, get_maps("data/")), local_update_boost=0.5),
+    EloTreeModel(clusters=correct_cluster(data_all, get_maps("data/", just_types=True)), local_update_boost=0.5),
+    EloTreeModel(clusters=correct_cluster(data_all, get_maps("data/", just_maps=True)), local_update_boost=0.5),
+    # EloTreeModel(clusters=one_concept, local_update_boost=0.5),
+    # EloTreeModel(clusters=random_concepts(one_concept["all"], 2), local_update_boost=0.5),
+    # EloTreeModel(clusters=random_concepts(one_concept["all"], 4), local_update_boost=0.5),
+    EloTreeModel(clusters=compute_clusters(data_all, 5), local_update_boost=0.5),
+    EloTreeModel(clusters=compute_clusters(data_all, 20), local_update_boost=0.5),
+    EloTreeModel(clusters=compute_clusters(data_all, 50), local_update_boost=0.5),
+], dont=1, resolution=True, diff_to=0.40759, evaluate=True)
 
 compare_models(data_states, [
     # AvgModel(),

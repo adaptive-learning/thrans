@@ -122,12 +122,13 @@ def correct_cluster(data, clusters, regularization=2, run=False, print_diffs=Fal
 def cluster_optim(data, clusters=None, values=range(2, 11), local_update_boost=0.5):
     plt.figure()
     plt.title(str(data))
-    elo = Evaluator(data, EloModel()).get_report()["rmse"]
+    elo = Evaluator(data, EloModel(beta=0.06)).get_report()["rmse"]
     plt.plot([values[0], values[-1]], [elo, elo], "b-", label="elo")
 
     for c, color in zip(clusters, colors[2:]):
         exp_tree = Evaluator(data, EloTreeModel(clusters=c, local_update_boost=local_update_boost),).get_report()["rmse"]
         plt.plot([values[0], values[-1]], [exp_tree, exp_tree], "-", color=color, label="expert clusters ({})".format(len(c)))
+        print exp_tree
 
         exp_tree_corr = Evaluator(data, EloTreeModel(clusters=correct_cluster(data, c), local_update_boost=local_update_boost),).get_report()["rmse"]
         plt.plot([values[0], values[-1]], [exp_tree_corr, exp_tree_corr], "--", color=color, label="expert corrected clusters ({})".format(len(c)))

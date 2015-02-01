@@ -115,7 +115,7 @@ class Evaluator:
             plt.show()
 
 
-def compare_models(data, models, dont=False, resolution=True, auc=False, evaluate=False):
+def compare_models(data, models, dont=False, resolution=True, auc=False, evaluate=False, diff_to=None):
     if dont:
         return
     plt.xlabel("RMSE")
@@ -131,6 +131,8 @@ def compare_models(data, models, dont=False, resolution=True, auc=False, evaluat
         report = Evaluator(data, model).get_report()
         print model
         print "RMSE: {:.5}".format(report["rmse"])
+        if diff_to is not None:
+            print "RMSE diff: {:.5f}".format(diff_to - report["rmse"])
         print "LL: {:.6}".format(report["log-likely-hood"])
         print "AUC: {:.4}".format(report["AUC"])
         print "Brier resolution: {:.4}".format(report["brier"]["resolution"])

@@ -169,32 +169,40 @@ compare_models(data_states, [
 
 
 def skill_correlations():
-    model = EloTreeModel(clusters=maps_continents_country, local_update_boost=0.5)
-    Runner(data_states, model).run()
+    clusters = get_maps("data/")
+    model = EloTreeModel(clusters=clusters, local_update_boost=0.5)
+    Runner(data_all, model).run()
     global_skills = pd.Series(model.global_skill, index=model.global_skill.keys())
 
     skills = pd.DataFrame(data=global_skills, columns=["global"])
-    for map in maps_continents_country.keys():
+    for map in clusters.keys():
         local_skills = pd.Series(model.maps_skills[map], index=model.maps_skills[map].keys())
         skills[map] = local_skills
 
     skills = skills[(~skills.isnull()).sum(axis=1) > 6]
 
-    for map in maps_continents_country.keys():
+    for map in clusters.keys():
         if (~skills[map].isnull()).sum() == 0:
             continue
 
         plt.figure()
         tmp = skills[~skills[map].isnull()]
         plt.title(skills.corr().ix["global", map])
+        print skills.corr().ix["global", map], map
         plt.plot(tmp["global"], tmp[map], ".")
         plt.ylabel(map)
         plt.xlabel("global")
         plt.savefig("results/tree-elo skill-corr {} filtered-6.png".format(map))
 
 # skill_correlations()
+#
 
-plt.show()
+corr = pd.DataFrame.from_csv("corr.tmp")
+corr = corr.ix[1:, 1:]
+corr[corr==1] = 0
+print corr.std()
+
+# plt.show()
 
 if False:
 

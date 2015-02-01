@@ -95,7 +95,8 @@ if False:
 
 if False:
     model1 = EloModel(beta=0.06)
-    model2 = EloCorrModel(corr_place_weight=0.4, prior_weight=1)
+    # model2 = EloCorrModel(corr_place_weight=0.4, prior_weight=1)
+    model2 = EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5)
     # model2 = EloModel()
     # model2 = EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5)
     d1 = pd.load("logs/{}.pd".format(utils.hash(model1, data_all)))
@@ -103,9 +104,14 @@ if False:
     ch = np.random.choice(d1.index, 3000)
     # plt.plot(d1.ix[ch], d2.ix[ch], ".")
     d = abs(d1 - d2)
-    data_all.join_predictions(d)
-    d = data_all.data[data_all.data["prediction"] > 0.1]
-    print len(d), len(d["student"].unique()), len(data_all.data["student"].unique()), len(data_all.data)
+    # data_all.join_predictions(d)
+    # d = data_all.data[data_all.data["prediction"] > 0.1]
+    # print len(d), len(d["student"].unique()), len(data_all.data["student"].unique()), len(data_all.data)
+
+    print 1. * (d<0.01).sum() / len(d)
+
+if True:
+    pass
 
 # d = data_all.get_train_dataframe()
 # students = d["student"].unique()
