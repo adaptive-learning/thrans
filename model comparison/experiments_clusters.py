@@ -7,6 +7,9 @@ from models.elo_corr import *
 from models.elo_tree import *
 from clusters import *
 import pylab as plt
+import networkx as nx
+from networkx_viewer import Viewer
+from matplotlib import cm
 
 colors = ["blue", "red", "green", "cyan", "purple", "black", "orange", "magenta", "gray", "yellow"]
 
@@ -106,5 +109,45 @@ if False:
     plt.figure()
     plt.plot(np.log(params), results, '-')
 
-# plt.savefig("results/tmp2.png")
+if True:
+    data = data_europe
+    filename = "data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10])
+    corr = pd.read_pickle(filename)
+    graph = nx.from_numpy_matrix(corr.values)
+    names = {}
+    for i, id in enumerate(corr.columns):
+        names[i] = places_all.loc[id, "name_en"]
+
+
+    names = {i: n.decode("utf-8").encode("ascii", "ignore") for i, n in names.items()}
+
+    graph = nx.relabel_nodes(graph, names)
+    # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=True) if d['weight'] > 0.4])
+    # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=True) if 1 > d['weight'] > 0.4])
+    # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=True) if d['weight'] > sorted([d["weight"] for d in graph[u].values()], reverse=True)[3]])
+
+    graph2 = nx.Graph()
+
+    weights = set()
+    for node in graph.nodes():
+        for edge in sorted(list(graph[node].items()), key=lambda d: -d[1]["weight"])[:3]:
+            graph2.add_edge(node, edge[0], edge[1])
+            weights.add(edge[1]["weight"])
+
+    edges = graph2.edges()
+    # colors = [graph2[u][v]['color'] for u,v in edges]
+    widths = [(graph2[u][v]['weight'] - min(weights) + 0.02) * 15 for u, v in edges]
+    labels = {(u, v): str(graph2[u][v]["weight"])[:4] for u, v in edges}
+
+    pos = nx.graphviz_layout(graph2)
+    nx.draw(graph2, pos=pos, edgelist=edges, width=widths)
+    nx.draw_networkx_labels(graph2, pos={k: (v[0], v[1]-15) for k, v in pos.items()})
+    nx.draw_networkx_edge_labels(graph2, pos=pos, edge_labels=labels, font_size=8)
+    print pos
+
+    # app = Viewer(graph2)
+    # app.mainloop()
+
+
+# plt.savefig("results/europe-graph.svg")
 plt.show()

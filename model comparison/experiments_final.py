@@ -21,12 +21,12 @@ data_train2 = Data("data/geography-first-all-2-train.pd", train=0.5, force_train
 compare_models(data_all, [
     # AvgModel(),
     # AvgItemModel(),
-    EloModel(),
+    # EloModel(),
     EloModel(beta=0.06),
     # EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     # EloCorrModel(corr_place_weight=0.4, prior_weight=1),
     # EloCorrModel(corr_place_weight=0.4, prior_weight=1, min_corr=200),
-    EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
+    # EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
     EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
     # EloTreeModel(clusters=get_maps("data/", old=True), local_update_boost=0.5),
     # EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
@@ -110,8 +110,6 @@ if False:
 
     print 1. * (d<0.01).sum() / len(d)
 
-if True:
-    pass
 
 # d = data_all.get_train_dataframe()
 # students = d["student"].unique()
