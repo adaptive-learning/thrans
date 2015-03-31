@@ -19,7 +19,9 @@ data_cz_cities = Data("data/geography-first-cz_city-filtered-2.pd", train=0.3)
 data_cz_cities_old = Data("data/geography-first-cz_city-filtered.pd", train=0.3)
 maps_continents_country = get_continents_country_maps("data/")
 
-# Runner(Data("data/geography-first-all.pd", test=False), EloModel()).run()
+model = EloModel()
+Runner(data_all, model).run()
+pd.DataFrame(model.difficulty.items()).to_csv("difficulties.csv")
 # Runner(Data("data/geography-first-all.pd", test=False), AvgModel()).run()
 # Runner(Data("data/geography-first-all.pd", test=False), AvgItemModel()).run()
 
