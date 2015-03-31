@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from proso.geography import answers as ga
@@ -7,7 +8,7 @@ import seaborn as sns
 import numpy as np
 
 
-def get_answers(from_csv=False, sample=False, min_answers_per_item=1000, min_answers_per_user=10):
+def get_answers(from_csv=False, sample=False, min_answers_per_item=0, min_answers_per_user=10):
     if from_csv or not os.path.exists("data/answers{}.pd".format(".sample" if sample else "")):
         answers = ga.from_csv("data/geography.answer{}.csv".format(".sample" if sample else ""))
         answers["correct"] = answers["place_asked"] == answers["place_answered"]
@@ -70,6 +71,13 @@ def log_mean_time_hist(answers, classes=False):
     else:
         answers.groupby("user").first()["user_mean"].hist(bins=50, range=(0, 15))
     # plt.xlim(0, 30)
+
+
+def join_concepts(answers, concepts):
+    concepts = json.load(open(concepts))
+    answers["concept"] = "unknown"
+    for name, places in concepts.items():
+        answers.loc[answers["place_asked"].isin(places), "concept"] = name
 
 
 def timesort(value):
@@ -181,15 +189,30 @@ def compare_speed_and_answers(answers, time=False):
     ax2.set_ylabel("user count")
 
 
-answers = get_answers(sample=False)
+def rs_by_concept(answers, concepts):
+    join_concepts(answers, concepts)
+    concepts = answers["concept"].unique()
+    data = []
+    for concept in concepts:
+        data.append(answers[answers["concept"] == concept]["response_time"].median() / 1000)
 
+    data, concepts = zip(*sorted(zip(data, concepts), key=lambda x: -x[0]))
+
+    plt.bar(range(len(concepts)), data)
+    plt.xticks(np.arange(len(concepts)) + 0.5, concepts, rotation=80)
+    plt.ylabel("median of response time")
+
+
+answers = get_answers(sample=False)
 mark_class_room_users(answers)
 split_by_mean_time(answers)
+
 # compare_speed_and_accuracy(answers)
 # compare_speed_and_feedback(answers)
 # compare_speed_and_difficulty(answers)
 # compare_speed_and_class(answers)
-compare_speed_and_answers(answers, time=True)
+# compare_speed_and_answers(answers, time=True)
+rs_by_concept(answers, "data/maps-types.json")
 
 # log_mean_time_hist(answers, classes=True)
 plt.show()
