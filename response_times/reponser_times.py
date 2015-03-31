@@ -158,6 +158,29 @@ def compare_speed_and_class(answers):
     ax2.set_ylabel("user count")
 
 
+def compare_speed_and_answers(answers, time=False):
+    speeds = sorted(answers["speed"].unique(), key=timesort)
+    if time:
+        speeds = speeds[:-1]
+    anss = []
+    counts = []
+    for speed in speeds:
+        ans = answers[answers["speed"] == speed].groupby("user").apply(len).mean()
+        t = answers[answers["speed"] == speed].groupby("user")["user_mean"].first().mean() if time else 1
+        anss.append(ans * t)
+        counts.append(len(answers.loc[(answers["speed"] == speed)]["user"].unique()))
+
+    plt.figure()
+    ax1 = plt.subplot()
+    ax1.plot(range(len(speeds)), anss)
+    plt.xticks(range(len(speeds)), speeds)
+    ax1.set_xlabel("log-mean time")
+    ax1.set_ylabel("avg time spend in system" if time else "avg of number of answers")
+    ax2 = ax1.twinx()
+    ax2.plot(range(len(speeds)), counts, "g")
+    ax2.set_ylabel("user count")
+
+
 answers = get_answers(sample=False)
 
 mark_class_room_users(answers)
@@ -166,7 +189,7 @@ split_by_mean_time(answers)
 # compare_speed_and_feedback(answers)
 # compare_speed_and_difficulty(answers)
 # compare_speed_and_class(answers)
+compare_speed_and_answers(answers, time=True)
 
-
-log_mean_time_hist(answers, classes=True)
+# log_mean_time_hist(answers, classes=True)
 plt.show()
