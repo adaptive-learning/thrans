@@ -30,7 +30,7 @@ def get_answers(from_csv=False, sample=False, min_answers_per_item=0, min_answer
     return answers
 
 
-def mark_class_room_users(answers, classroom_size=5):
+def mark_class_room_users(answers, classroom_size=20):
     classroom_users = [
         user
         for ip, users in (
@@ -245,7 +245,7 @@ split_by_mean_time(answers)
 # compare_speed_and_accuracy(answers)
 # compare_speed_and_feedback(answers)
 # compare_speed_and_difficulty(answers)
-# compare_speed_and_class(answers)
+compare_speed_and_class(answers)
 # compare_speed_and_answers(answers, time=True)
 # compare_speed_and_std(answers)
 # rs_by_concept(answers, "data/maps-types.json")
@@ -254,8 +254,8 @@ split_by_mean_time(answers)
 # rs_distribution(answers, "first_feedback")
 
 # answers["difficulty_groups"] = answers["difficulty"].apply(round)
-# rs_distribution(answers, "difficulty_groups")
-std_distribution(answers)
+# rs_distribution(answers)
+# std_distribution(answers)
 # std_distribution(answers, "class")
 # std_distribution(answers, "first_feedback")
 
