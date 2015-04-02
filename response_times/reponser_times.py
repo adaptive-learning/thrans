@@ -12,6 +12,7 @@ def get_answers(from_csv=False, sample=False, min_answers_per_item=0, min_answer
     if from_csv or not os.path.exists("data/answers{}.pd".format(".sample" if sample else "")):
         answers = ga.from_csv("data/geography.answer{}.csv".format(".sample" if sample else ""))
         answers = answers[answers["response_time"] < np.percentile(answers["response_time"], 99)]
+        answers = answers[answers["response_time"] > 0]
         answers["correct"] = answers["place_asked"] == answers["place_answered"]
         answers = answers[answers.join(pd.Series(answers.groupby("place_asked").apply(len), name="count"), on="place_asked")["count"] > min_answers_per_item]
         answers = answers[answers.join(pd.Series(answers.groupby("user").apply(len), name="count"), on="user")["count"] > min_answers_per_user]
@@ -53,6 +54,7 @@ def split_by_mean_time(answers, count=11, size=1, start=1):
 def join_feedback(answers):
     feedback = pd.read_csv("data/feedback.rating.csv")
     answers = answers.join(pd.Series(feedback.groupby("user").apply(lambda x: x["value"].mean()), name="feedback"), on="user")
+    answers = answers.join(pd.Series(feedback.groupby("user").first()["value"], name="first_feedback"), on="user")
     return answers
 
 
@@ -204,6 +206,12 @@ def rs_by_concept(answers, concepts):
     plt.ylabel("median of response time")
 
 
+def rs_distribution(answers, split="speed"):
+    order = sorted(answers["speed"].unique(), key=timesort) if split == "speed" else None
+    sns.violinplot(answers["log_times"], answers[split], order=order)
+    plt.xlabel(split)
+
+
 answers = get_answers(sample=False)
 mark_class_room_users(answers)
 split_by_mean_time(answers)
@@ -213,7 +221,10 @@ split_by_mean_time(answers)
 # compare_speed_and_difficulty(answers)
 # compare_speed_and_class(answers)
 # compare_speed_and_answers(answers, time=True)
-rs_by_concept(answers, "data/maps-types.json")
+# rs_by_concept(answers, "data/maps-types.json")
+# rs_distribution(answers)
+# rs_distribution(answers, "class")
+# rs_distribution(answers, "first_feedback")
 
 # log_mean_time_hist(answers, classes=True)
 plt.show()
