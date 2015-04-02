@@ -11,6 +11,7 @@ import numpy as np
 def get_answers(from_csv=False, sample=False, min_answers_per_item=0, min_answers_per_user=10):
     if from_csv or not os.path.exists("data/answers{}.pd".format(".sample" if sample else "")):
         answers = ga.from_csv("data/geography.answer{}.csv".format(".sample" if sample else ""))
+        answers = answers[answers["response_time"] < np.percentile(answers["response_time"], 99)]
         answers["correct"] = answers["place_asked"] == answers["place_answered"]
         answers = answers[answers.join(pd.Series(answers.groupby("place_asked").apply(len), name="count"), on="place_asked")["count"] > min_answers_per_item]
         answers = answers[answers.join(pd.Series(answers.groupby("user").apply(len), name="count"), on="user")["count"] > min_answers_per_user]
