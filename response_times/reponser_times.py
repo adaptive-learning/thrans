@@ -18,6 +18,8 @@ def get_answers(from_csv=False, sample=False, min_answers_per_item=0, min_answer
         answers = answers[answers.join(pd.Series(answers.groupby("user").apply(len), name="count"), on="user")["count"] > min_answers_per_user]
         answers["log_times"] = np.log(answers["response_time"] / 1000)
         answers = answers.join(np.exp(pd.Series(answers.groupby("user")["log_times"].apply(np.mean), name="user_mean")), on="user")
+        answers = answers.join(pd.Series(answers.groupby("user")["response_time"].apply(np.std), name="user_std"), on="user")
+        answers = answers.join(pd.Series(answers.groupby("user")["log_times"].apply(np.std), name="user_std_log"), on="user")
         answers = join_feedback(answers)
         answers = join_difficulties(answers)
 
@@ -212,6 +214,30 @@ def rs_distribution(answers, split="speed"):
     plt.xlabel(split)
 
 
+def std_distribution(answers, split="speed"):
+    order = sorted(answers["speed"].unique(), key=timesort) if split == "speed" else None
+    answers = answers.groupby("user").first()
+    sns.violinplot(answers["user_std_log"], answers[split], order=order)
+    plt.xlabel(split)
+
+
+def compare_speed_and_std(answers):
+    speeds = sorted(answers["speed"].unique(), key=timesort)
+    class_rates = []
+    counts = []
+    for speed in speeds:
+        class_rate = answers[answers["speed"] == speed].groupby("user")["user_std_log"].mean().mean()
+        class_rates.append(class_rate)
+        counts.append(len(answers.loc[(answers["speed"] == speed)]["user"].unique()))
+
+    plt.figure()
+    ax1 = plt.subplot()
+    ax1.plot(range(len(speeds)), class_rates)
+    plt.xticks(range(len(speeds)), speeds)
+    ax1.set_xlabel("log-mean time")
+    ax1.set_ylabel("avg of std of users log_times")
+
+
 answers = get_answers(sample=False)
 mark_class_room_users(answers)
 split_by_mean_time(answers)
@@ -221,10 +247,17 @@ split_by_mean_time(answers)
 # compare_speed_and_difficulty(answers)
 # compare_speed_and_class(answers)
 # compare_speed_and_answers(answers, time=True)
+# compare_speed_and_std(answers)
 # rs_by_concept(answers, "data/maps-types.json")
 # rs_distribution(answers)
 # rs_distribution(answers, "class")
 # rs_distribution(answers, "first_feedback")
+
+# answers["difficulty_groups"] = answers["difficulty"].apply(round)
+# rs_distribution(answers, "difficulty_groups")
+std_distribution(answers)
+# std_distribution(answers, "class")
+# std_distribution(answers, "first_feedback")
 
 # log_mean_time_hist(answers, classes=True)
 plt.show()
