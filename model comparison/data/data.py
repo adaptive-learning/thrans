@@ -50,6 +50,8 @@ class Data():
                     selected_students = json.load(open(os.path.dirname(os.path.abspath(__file__)) + "/train_users.json"))
                 self.data_train = self.data[self.data["student"].isin(selected_students)]
                 self.data = self.data[~self.data["student"].isin(selected_students)]
+            else:
+                self.data_train = self.data[self.data["student"].isin([])]
 
             if self.only_train:
                 self.all_data = self.data_train
