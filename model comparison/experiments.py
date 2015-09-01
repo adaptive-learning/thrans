@@ -10,6 +10,7 @@ from models.elo_time import *
 import pylab as plt
 import scipy.stats as sc
 
+data_off = Data("data/geographyOF-first.pd.pd", train=0.3)
 data_all = Data("data/geography-first-all-2.pd", train=0.3)
 data_states = Data("data/geography-first-states-filtered-2.pd", train=0.3)
 data_states_old = Data("data/geography-first-states-filtered.pd", train=0.3)
@@ -19,9 +20,10 @@ data_cz_cities = Data("data/geography-first-cz_city-filtered-2.pd", train=0.3)
 data_cz_cities_old = Data("data/geography-first-cz_city-filtered.pd", train=0.3)
 maps_continents_country = get_continents_country_maps("data/")
 
-model = EloModel()
-Runner(data_all, model).run()
-pd.DataFrame(model.difficulty.items()).to_csv("difficulties.csv")
+# model = EloModel()
+# Runner(Data("../response_times/data/geography-first.pd"), model).run()
+# pd.DataFrame(model.difficulty.items()).to_csv("difficulties.csv")
+# pd.DataFrame(model.global_skill.items()).to_csv("skills.csv")
 # Runner(Data("data/geography-first-all.pd", test=False), AvgModel()).run()
 # Runner(Data("data/geography-first-all.pd", test=False), AvgItemModel()).run()
 
@@ -199,10 +201,10 @@ def skill_correlations():
 # skill_correlations()
 #
 
-corr = pd.DataFrame.from_csv("corr.tmp")
-corr = corr.ix[1:, 1:]
-corr[corr==1] = 0
-print corr.std()
+# corr = pd.DataFrame.from_csv("corr.tmp")
+# corr = corr.ix[1:, 1:]
+# corr[corr==1] = 0
+# print corr.std()
 
 # plt.show()
 

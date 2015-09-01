@@ -69,8 +69,8 @@ def old_geography_data_parser(output, input="raw data/data-geography-first.csv")
             fout.write(json.dumps(answer)+"\n")
 
 
-def geography_data_parser(output, input="raw data/geography-all.csv"):
-    data = pd.DataFrame.from_csv(input, index_col=False)
+def geography_data_parser(output, input="raw data/geography-all.csv", sep=","):
+    data = pd.DataFrame.from_csv(input, index_col=False, sep=sep)
     data["correct"] = data["place_asked"] == data["place_answered"]
     data.rename(inplace=True, columns={
         "user": "student",
@@ -80,8 +80,8 @@ def geography_data_parser(output, input="raw data/geography-all.csv"):
         "number_of_options": "choices",
         "place_map": "map"
     })
-    del data["options"]
-    del data["inserted"]
+    # del data["options"]
+    # del data["inserted"]
 
     data["index"] = data["id"]
     data.set_index("index", inplace=True)
@@ -249,8 +249,10 @@ europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'e
 
 
 
-# geography_data_parser("geography-all-2.pd", input="raw data/answers_all.csv")
-# filter_first(output="geography-first-all-2.pd")
+# geography_data_parser("../../response_times/data/geography-all.pd", input="../../response_times/data/geography.answer.csv")
+# geography_data_parser("geographyOF-all.pd", input="raw official/answer.csv", sep=";")
+# geography_data_parser("geography-all.pd", input="raw data/answers_all.csv")
+# filter_first(input="geographyOF-all.pd", output="geographyOF-first.pd")
 # filter_states(output="geography-first-states-2.pd")
 # filter_europe(output="geography-first-europe-2.pd")
 # filter_cz_cities(output="geography-first-cz_city-2.pd")
