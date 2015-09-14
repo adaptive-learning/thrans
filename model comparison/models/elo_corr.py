@@ -4,7 +4,7 @@ from hashlib import sha1
 
 class EloCorrModel(Model):
 
-    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0, place_decay=False, min_corr=None):
+    def __init__(self, alpha=1.0, beta=0.1, decay_function=None, corr_place_weight=1, prior_weight=0, place_decay=False, min_corr=None, corrfile=None):
         Model.__init__(self)
 
         self.corr = None
@@ -16,6 +16,7 @@ class EloCorrModel(Model):
         self.corr_place_weight = corr_place_weight
         self.prior_weight = prior_weight
         self.min_corr = min_corr
+        self.corrfile = corrfile
 
         self.global_skill = {}
         self.difficulty = {}
@@ -24,12 +25,16 @@ class EloCorrModel(Model):
         self.local_skill = {}
 
     def __str__(self):
-        return "Elo with correlations{}; decay - alpha: {}, beta: {}, prior_weight {}, corr_place_weight {}{}"\
-            .format(" plDe" if self.place_decay else "", self.alpha, self.beta, self.prior_weight, self.corr_place_weight, "" if self.min_corr is None else " min_corr: " + str(self.min_corr))
+        return "Elo with correlations{}; decay - alpha: {}, beta: {}, prior_weight {}, corr_place_weight {}{}{}"\
+            .format(" plDe" if self.place_decay else "", self.alpha, self.beta, self.prior_weight, self.corr_place_weight, "" if self.min_corr is None else " min_corr: " + str(self.min_corr), "" if not self.corrfile else self.corrfile)
 
     def pre_process_data(self, data):
-        filename = "data/{}{}.corr.pd".format(sha1(str(data)).hexdigest()[:10], "" if self.min_corr is None else " min_corr: " + str(self.min_corr))
+        if self.corrfile:
+            filename = self.corrfile
+        else:
+            filename = "data/{}{}.corr.pd".format(sha1(str(data)).hexdigest()[:10], "" if self.min_corr is None else " min_corr: " + str(self.min_corr))
         try:
+            print "filename:", filename
             self.corr = pd.read_pickle(filename)
             return
         except:

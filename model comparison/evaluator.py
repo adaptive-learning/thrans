@@ -15,12 +15,12 @@ from hashlib import sha1
 
 
 class Evaluator:
-    def __init__(self, data, model):
+    def __init__(self, data, model, run=False):
         self.model = model
         self.data = data
         self.hash = utils.hash(model, data)
 
-        if not os.path.isfile("logs/{}.report".format(self.hash)):
+        if not os.path.isfile("logs/{}.report".format(self.hash)) or run:
             print "Computing missing data {}; {}".format(data, model)
             runner.Runner(data, model).run()
             self.evaluate()
@@ -115,7 +115,7 @@ class Evaluator:
             plt.show()
 
 
-def compare_models(data, models, dont=False, resolution=True, auc=False, evaluate=False, diff_to=None):
+def compare_models(data, models, dont=False, resolution=True, auc=False, evaluate=False, diff_to=None, rerun=False):
     if dont:
         return
     plt.xlabel("RMSE")
@@ -127,7 +127,7 @@ def compare_models(data, models, dont=False, resolution=True, auc=False, evaluat
         plt.ylabel("Brier score")
     for model in models:
         if evaluate:
-            Evaluator(data, model).evaluate()
+            Evaluator(data, model, run=rerun).evaluate()
         report = Evaluator(data, model).get_report()
         print model
         print "RMSE: {:.5}".format(report["rmse"])

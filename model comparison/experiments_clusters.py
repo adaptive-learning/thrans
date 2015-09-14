@@ -19,6 +19,8 @@ places_all.set_index(places_all["id"], inplace=True)
 data_all = Data("data/geography-first-all-2.pd", train=0.3)
 data_states = Data("data/geography-first-states-filtered-2.pd", train=0.3)
 data_europe = Data("data/geography-first-europe-filtered-2.pd", train=0.3)
+data_off = Data("data/geographyOF-first.pd", train=0.3, force_train=42)
+data_off_europe = Data("data/geographyOF-first-europe.pd", train=0.3, force_train=42)
 maps_continents_country = get_continents_country_maps("data/")
 maps_all = get_maps("data/")
 one_concept = {"all": reduce(lambda a, b: a + maps_all[b], maps_all, [])}
@@ -47,21 +49,21 @@ group_calibration(data_all, [
     EloTreeModel(clusters=correct_cluster(data_all, tmp_maps), local_update_boost=0.5)
     ], tmp_maps, dont=1)
 
-compare_models(data_europe, [
+compare_models(data_off_europe, [
     # AvgModel(),
     # AvgItemModel(),
     EloModel(beta=0.06),
     # EloCorrModel(corr_place_weight=1., prior_weight=0.8, min_corr=200),
     EloTreeModel(clusters=europe_concepts, local_update_boost=0.25),
-    EloTreeModel(clusters=correct_cluster(data_europe, europe_concepts), local_update_boost=0.25),
+    EloTreeModel(clusters=correct_cluster(data_off_europe, europe_concepts), local_update_boost=0.25),
     EloTreeModel(clusters=europe_concepts2, local_update_boost=0.25),
-    EloTreeModel(clusters=correct_cluster(data_europe, europe_concepts2), local_update_boost=0.25),
-    EloTreeModel(clusters=compute_clusters(data_europe, 2), local_update_boost=0.25),
-    EloTreeModel(clusters=compute_clusters(data_europe, 3), local_update_boost=0.25),
-    EloTreeModel(clusters=compute_clusters(data_europe, 5), local_update_boost=0.25),
-    ], dont=1, resolution=True, evaluate=False, diff_to=0.37158)
+    EloTreeModel(clusters=correct_cluster(data_off_europe, europe_concepts2), local_update_boost=0.25),
+    EloTreeModel(clusters=compute_clusters(data_off_europe, 2), local_update_boost=0.25),
+    EloTreeModel(clusters=compute_clusters(data_off_europe, 3), local_update_boost=0.25),
+    EloTreeModel(clusters=compute_clusters(data_off_europe, 5), local_update_boost=0.25),
+    ], dont=0, resolution=True, evaluate=False, diff_to=0.38258)
 
-compare_models(data_europe, [
+compare_models(data_off, [
     # AvgModel(),
     # AvgItemModel(),
     EloModel(beta=0.06),
@@ -69,16 +71,16 @@ compare_models(data_europe, [
     EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
     EloTreeModel(clusters=get_maps("data/", just_maps=True), local_update_boost=0.5),
     EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
-    EloTreeModel(clusters=correct_cluster(data_all, get_maps("data/")), local_update_boost=0.5),
-    EloTreeModel(clusters=correct_cluster(data_all, get_maps("data/", just_types=True)), local_update_boost=0.5),
-    EloTreeModel(clusters=correct_cluster(data_all, get_maps("data/", just_maps=True)), local_update_boost=0.5),
+    EloTreeModel(clusters=correct_cluster(data_off, get_maps("data/")), local_update_boost=0.5),
+    EloTreeModel(clusters=correct_cluster(data_off, get_maps("data/", just_types=True)), local_update_boost=0.5),
+    EloTreeModel(clusters=correct_cluster(data_off, get_maps("data/", just_maps=True)), local_update_boost=0.5),
     # EloTreeModel(clusters=one_concept, local_update_boost=0.5),
     # EloTreeModel(clusters=random_concepts(one_concept["all"], 2), local_update_boost=0.5),
     # EloTreeModel(clusters=random_concepts(one_concept["all"], 4), local_update_boost=0.5),
-    EloTreeModel(clusters=compute_clusters(data_all, 5), local_update_boost=0.5),
-    EloTreeModel(clusters=compute_clusters(data_all, 20), local_update_boost=0.5),
-    EloTreeModel(clusters=compute_clusters(data_all, 50), local_update_boost=0.5),
-], dont=1, resolution=True, diff_to=0.40759, evaluate=True)
+    EloTreeModel(clusters=compute_clusters(data_off, 5), local_update_boost=0.5),
+    EloTreeModel(clusters=compute_clusters(data_off, 20), local_update_boost=0.5),
+    EloTreeModel(clusters=compute_clusters(data_off, 50), local_update_boost=0.5),
+    ], dont=1, resolution=True, diff_to=0.4142, evaluate=False)
 
 compare_models(data_states, [
     # AvgModel(),
@@ -109,9 +111,10 @@ if False:
     plt.figure()
     plt.plot(np.log(params), results, '-')
 
-if True:
-    data = data_europe
-    filename = "data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10])
+if False:
+    data = data_off_europe
+    # filename = "data/{}.corr.pd".format(sha1(str(data)).hexdigest()[:10])
+    filename = "data/{}{}.corr.pd".format(sha1(str(data)).hexdigest()[:10], " min_corr: " + str(200))
     corr = pd.read_pickle(filename)
     graph = nx.from_numpy_matrix(corr.values)
     names = {}
@@ -123,7 +126,7 @@ if True:
 
     graph = nx.relabel_nodes(graph, names)
     # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=True) if d['weight'] > 0.4])
-    # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=True) if 1 > d['weight'] > 0.4])
+    # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=Truxe) if 1 > d['weight'] > 0.4])
     # graph2 = nx.Graph([(u, v, d) for u, v, d in graph.edges(data=True) if d['weight'] > sorted([d["weight"] for d in graph[u].values()], reverse=True)[3]])
 
     graph2 = nx.Graph()

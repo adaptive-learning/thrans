@@ -78,10 +78,13 @@ def geography_data_parser(output, input="raw data/geography-all.csv", sep=","):
         "place_answered": "answer",
         "response_time": "time",
         "number_of_options": "choices",
-        "place_map": "map"
+        "place_map": "map",
+        "ip_country": "ip_country",
     })
     # del data["options"]
     # del data["inserted"]
+
+    data["choices"] = data["options"].apply(lambda s: 0 if s == '[]' else s.count(",") + 1)
 
     data["index"] = data["id"]
     data.set_index("index", inplace=True)
@@ -238,6 +241,9 @@ def get_train_students():
     # print len(set(all["user"]))
     json.dump(list(train["user"]), open("train_users.json", "w"))
 
+
+
+
 europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'europe-0': [79, 88, 108, 113, 114, 115, 144, 146, 159, 176, 178, 179, 182, 184, 191, 194, 203, 216], 'europe-2': [64, 81, 93, 94, 142, 143, 164, 165, 181, 205, 206]}
 
 # maps = get_maps()
@@ -254,7 +260,7 @@ europe_clusters = {'europe-1': [51, 66, 70, 74, 78, 147, 154, 190, 196, 234], 'e
 # geography_data_parser("geography-all.pd", input="raw data/answers_all.csv")
 # filter_first(input="geographyOF-all.pd", output="geographyOF-first.pd")
 # filter_states(output="geography-first-states-2.pd")
-# filter_europe(output="geography-first-europe-2.pd")
+# filter_europe(input="geographyOF-first.pd", output="geographyOF-first-europe.pd")
 # filter_cz_cities(output="geography-first-cz_city-2.pd")
 # filter_small_data(input="geography-first-states-2.pd", output="geography-first-states-filtered-2.pd", min_items=10)
 # filter_small_data(input="geography-first-cz_city-2.pd", output="geography-first-cz_city-filtered-2.pd", min_items=10)

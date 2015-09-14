@@ -10,7 +10,7 @@ from models.elo_time import *
 import pylab as plt
 import scipy.stats as sc
 
-data_off = Data("data/geographyOF-first.pd.pd", train=0.3)
+data_off = Data("data/geographyOF-first.pd", train=0.3)
 data_all = Data("data/geography-first-all-2.pd", train=0.3)
 data_states = Data("data/geography-first-states-filtered-2.pd", train=0.3)
 data_states_old = Data("data/geography-first-states-filtered.pd", train=0.3)
@@ -52,7 +52,7 @@ maps_continents_country = get_continents_country_maps("data/")
 # compare_models(data_europe, [AvgModel(), AvgItemModel(), EloModel(), EloCorrModel(), EloCorrModel(corr_place_weight=1.8)])
 # compare_models(data_states, [AvgModel(), AvgItemModel(), EloModel(), EloCorrModel(corr_place_weight=0.6, prior_weight=0.6), EloClusterModel(clusters=maps_continents_country)])
 
-compare_models(data_all, [
+compare_models(data_off, [
     AvgModel(),
     AvgItemModel(),
     EloTimeModel(),
@@ -62,7 +62,7 @@ compare_models(data_all, [
     EloCorrModel(corr_place_weight=0.8, prior_weight=0.8),
     EloTreeModel(clusters=get_maps("data/"), local_update_boost=0.5),
     EloTreeModel(clusters=get_maps("data/", just_types=True), local_update_boost=0.5),
-], dont=True, resolution=True)
+], dont=False, resolution=True)
 
 tmp_maps = get_maps("data/", just_types=True)
 group_rmse(data_all, [
@@ -94,7 +94,7 @@ compare_models(data_europe, [
     # EloTimeModel(),
     EloModel(alpha=1.2, beta=.12),
     # EloClusterModel(clusters=europe_clusters),
-    EloCorrModel(corr_place_weight=1., prior_weight=0.6),
+    EloCorrModel(corr_place_weight=1., prior_weight=0.6, min_corr=10),
     EloTreeModel(clusters=europe_clusters, local_update_boost=0.2),
     # EloTreeModel(clusters=ac, local_update_boost=0.4),
 ], dont=True)
@@ -206,7 +206,7 @@ def skill_correlations():
 # corr[corr==1] = 0
 # print corr.std()
 
-# plt.show()
+plt.show()
 
 if False:
 
